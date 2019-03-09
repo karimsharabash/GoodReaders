@@ -1,7 +1,5 @@
 const express = require('express');
-const path=require('path');
 const router = express.Router();
-const pathToHtml="/run/media/rahmafaisal/01D48FB4035C68A0/iti/NodeJsProject/GoodReaders/GoodReaders/public"
 router.post("/login", (req,res) =>
 {
    const adminData = req.body;
@@ -18,7 +16,6 @@ router.post("/login", (req,res) =>
        else{
         console.log("wrong passward");
         res.send("wrong passward");
-            
        }
    }
    else{
@@ -26,7 +23,6 @@ router.post("/login", (req,res) =>
    res.end("ended")       
    }
 })
-
 router.get("/", (req ,res) =>
 {
     console.log("hello rahoma");

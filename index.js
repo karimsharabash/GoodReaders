@@ -1,9 +1,7 @@
 const express = require("express");
-const path = require('path');
-const router = express.Router();
 const mongoose = require("mongoose");
 const adminRout = require("./routes/adminRout");
-const pathToPublic = "/run/media/rahmafaisal/01D48FB4035C68A0/iti/NodeJsProject/GoodReaders/GoodReaders"
+const categoryRout = require("./routes/categRout");
 
 mongoose.connect('mongodb://localhost:27017/bookDB', () => {
     console.log("connected to database");
@@ -20,6 +18,7 @@ app.use(express.json({
   }));
 
 app.use("/admin", adminRout);
+app.use("/category", categoryRout);
 
 
 

@@ -1,5 +1,5 @@
 
-/*
+
 const mongoose  = require('mongoose');
 const authorSchema = mongoose.Schema({
    
@@ -15,13 +15,12 @@ const authorSchema = mongoose.Schema({
         type:Date,
         required:true
     },
-    photo:{
-        type:String;
+    photoName:{
+        type:String,
     }
 
 
 });
 
-const authorModel = mongoose.model('Author',bookSchema);
+const authorModel = mongoose.model('Authors',authorSchema);
 module.exports = authorModel
-*/

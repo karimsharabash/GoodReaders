@@ -1,5 +1,5 @@
 
-/*
+
 const mongoose  = require('mongoose');
 const bookSchema = mongoose.Schema({
     name:{
@@ -7,26 +7,26 @@ const bookSchema = mongoose.Schema({
         require:true
     },
     categoryId:{
-        type:Number,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:Categories,
         required:true
     },
     authorId:{
-        type:Number,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:Authers,
         required:true
     },
-    //avgRating:{
+    avgRating:{
         type:Number,
-    }
+    },
     ratingCount:
     {
       type:Number,   
-    }
-
-    photo:{
-        type:String;
+    },
+    photoName:{
+        type:String,
     }
 
 });
-const bookModel = mongoose.model('Book',bookSchema);
+const bookModel = mongoose.model('Books',bookSchema);
 module.exports = bookModel; 
-*/

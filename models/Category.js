@@ -1,5 +1,5 @@
 
-/*
+
 const mongoose  = require('mongoose');
 const CategorySchema = mongoose.Schema({
     name:{
@@ -7,6 +7,5 @@ const CategorySchema = mongoose.Schema({
         require:true
     }
 });
-const categoryModel = mongoose.model('Category',CategorySchema);
+const categoryModel = mongoose.model('Categories',CategorySchema);
  module.exports = categoryModel ;
-*/
