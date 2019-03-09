@@ -1,0 +1,26 @@
+.span-logo{
+	font: bolder;
+	color: brown;
+}
+.span-text{
+	font: bolder;
+	color: #007bff;
+}
+.mysignup{
+	width: 50%;
+	float: right;
+	border: 2px solid #DFDFDF ;
+	margin: 1%;
+	padding: 2%
+}
+.popular{
+	width: 50%;
+	margin: 1%;
+	padding-bottom: 2%;
+}
+.footerstyle{
+	background: #007BFF;
+}
+.cats{
+	margin: 2%;
+}

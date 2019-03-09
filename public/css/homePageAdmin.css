@@ -1,0 +1,38 @@
+html,body{
+    background-image:url('img/adminBackGroundImage.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+}
+.myContainer
+{
+    margin-left: 0px;
+}
+.navbar{
+    opacity: 0.3;
+    background-color: darkgray;
+    margin: 0px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display:block;
+    transition: top 0.3s;
+}
+  
+.navbar a {
+    font-weight: bold;
+    float: left;
+    display: block;
+    color:black;
+    text-align: center;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-decoration: none;
+    font-size: 25px;
+}
+  
+.navbar a:hover {
+    color: black;
+    
+  }

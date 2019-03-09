@@ -1,13 +1,13 @@
 const express = require('express');
 const path=require('path');
 const router = express.Router();
-//const pathToHtml="/media/karim/Courses/ITI/Node JS/Rahma/GoodReaders/public"
+const pathToHtml="/run/media/rahmafaisal/01D48FB4035C68A0/iti/NodeJsProject/GoodReaders/GoodReaders/public"
 router.post("/login", (req,res) =>
 {
    const adminData = req.body;
 
-    console.log(req.header);
-    console,log(req.body)
+    console.log("hyy")
+    console.log(req.body)
    if(adminData.name == "admin")
    {
        if( adminData.password == "admin")
