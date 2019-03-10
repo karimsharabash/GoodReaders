@@ -14,15 +14,19 @@ function sendLoginDataToServer(name,password)
   fetch('http://localhost:3000/admin/login',
         {
            method:"POST",
-           redirect : "follow",
-           headers: {'Content-Type':'text/plain',
-           Accept: 'text/html'
-          },
+           headers: {'Content-Type':'text/plain'},
            body:JSON.stringify(loginData),
         })
-        .then(function(err,res){ res.html(); })
-        
-       
+        .then(function(res){ return res.text(); })
+        .then(function(data){
+          if(data=='not the valid admin')
+          {
+            pleaseLoginDiv.style.display="block";
+          }
+          else
+          {
+          window.location=data }
+          })
 }
 function adminVerfication(event)
 {
@@ -30,14 +34,12 @@ function adminVerfication(event)
   const passwordadmin=adminPassword.value;
     if(username==""&&passwordadmin=="")
    {
-        pleaseLoginDiv.style.display="none";
+        pleaseLoginDiv.style.display="block";
         
-       //alert(pleaseLoginDiv.style.display);
-    
     }
   else
     { 
-      sendLoginDataToServer(username,passwordadmin);
+          sendLoginDataToServer(username,passwordadmin);
     }
     event.preventDefault()
 }

@@ -1,12 +1,14 @@
 const express = require('express');
-const categoryModel = require("../models/Category");
+const authorModel = require("../models/Author");
 const router = express.Router();
+
 
 router.post("/", (req,res) =>
 {
-  const newCat = req.body;
-  const category = new categoryModel(newCat);
-  category.save()
+  const newAuthor = req.body;
+
+  const author = new authorModel(newAuthor);
+  author.save()
   .then( () =>
   {
    res.send("done");
@@ -16,9 +18,9 @@ router.post("/", (req,res) =>
 
 router.get("/",(req,res)=>
 {
-    categoryModel.find(  (err, allCategories)=>{
+    authorModel.find(  (err, allAuthors)=>{
         if(err) throw err ;
-        res.send(allCategories);
+        res.send(allAuthors);
         })
 
 
@@ -27,11 +29,11 @@ router.get("/",(req,res)=>
 router.put("/:id",(req,res)=>
 {
    let idToUpdate = req.params.id;
-   let updatedCat = req.body;
-   categoryModel.updateOne({_id:idToUpdate},updatedCat)
+   let updatedAuthor = req.body;
+   authorModel.updateOne({_id:idToUpdate},updatedAuthor)
     .then(() =>
     { 
-        res.send("category updated "); 
+        res.send("Author updated "); 
     })
 })
 
@@ -39,11 +41,10 @@ router.delete("/:id",(req,res)=>
 {
    let idToDelete = req.params.id;
    
-    categoryModel.deleteOne({_id:idToDelete})
+   authorModel.deleteOne({_id:idToDelete})
     .then( ()=>
     {
-        res.send("category deleted"); 
+        res.send("category delete"); 
     })
 })
-
 module.exports = router;

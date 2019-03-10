@@ -26,8 +26,7 @@ function addingNewCatygoryfunction()
    else
    {
        let  newCatygory={
-           name:catygoryName,
-           id:catygoryId
+           name:catygoryName
        }          
 
        sendCatygoryToserver(newCatygory);
@@ -43,24 +42,24 @@ function addingNewCatygoryfunction()
 function addingNewRowInCatygoryTable(newRow)
 {
    
- CatygroiesTable.innerHTML+=' <tr><th scope="row">'+newRow.id+'</th><td>'+newRow.name+'</td><td  class="text-center"><input type="button" class="btn btn-info btn-xs " value="Edit"><input type="button" class="btn btn-danger btn-xs marginToTheLeft" value="Delete"></td></tr>'
+ CatygroiesTable.innerHTML+=' <tr><th scope="row">'+newRow.id+'</th><td>'+newRow.name+'</td><td  class="text-center"><input type="button" id="catygoryEditBtn" class="btn btn-info btn-xs " value="Edit"><input type="button" id="catygorydeleteBtn" class="btn btn-danger btn-xs marginToTheLeft" value="Delete"></td></tr>'
 }
     
 
 function sendCatygoryToserver(newCatygory){
 
-    fetch('http://localhost:3000/admin/addnewcat',
+    fetch('http://localhost:3000/category',
         {
            method:"POST",
            headers: {
             //    'Content-Type':'text/plain',
-           Accept: 'application/json'
+           Accept: 'text/plain'
         },
        
            body:JSON.stringify(newCatygory),
         })
         .then(function(res){ 
-          return res.json();
+          return res.text();
     }).then ( data => {
         console.log(data);
     })
@@ -81,7 +80,7 @@ CatygroiesTable.innerHTML+=' <tr><th scope="row">'+element.id+'</th><td>'+elemen
 function displayCatygroytable()
 {
  
-    fetch('http://localhost:3000/admin/allCatygory',
+    fetch('http://localhost:3000/category',
     {
        method:"GET",
        headers: {Accept: 'application/json'},
@@ -112,16 +111,16 @@ function editingCatygory(event)
        console.log("delete");
        CatygroiesTable.deleteRow(rowCat);
 
-       fetch('http://localhost:3000/admin/deleteCat/'+idOfCat,
+       fetch('http://localhost:3000/category/'+idOfCat,
        {
           method:"DELETE",
           headers: {
         // 'Content-Type':'text/plain',
-          Accept: 'application/json'
+          Accept: 'text/plain'
        },
        })
        .then(function(res){ 
-         return res.json();
+         return res.text();
    }).then ( data => {
        console.log(data);
    })
