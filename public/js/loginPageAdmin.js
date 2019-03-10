@@ -14,27 +14,32 @@ function sendLoginDataToServer(name,password)
   fetch('http://localhost:3000/admin/login',
         {
            method:"POST",
-           headers: {'Content-Type':'text/plain'},
+           redirect : "follow",
+           headers: {'Content-Type':'text/plain',
+           Accept: 'text/html'
+          },
            body:JSON.stringify(loginData),
         })
-        .then(function(res){ return res.json(); })
-        .then(function(data){ alert( JSON.stringify( data ) ) })
+        .then(function(err,res){ res.html(); })
+        
        
 }
-function adminVerfication()
+function adminVerfication(event)
 {
  const username=adminUserName.value;
   const passwordadmin=adminPassword.value;
     if(username==""&&passwordadmin=="")
    {
-        pleaseLoginDiv.style.display="block";
+        pleaseLoginDiv.style.display="none";
         
+       //alert(pleaseLoginDiv.style.display);
+    
     }
   else
     { 
-          sendLoginDataToServer(username,passwordadmin);
+      sendLoginDataToServer(username,passwordadmin);
     }
-    
+    event.preventDefault()
 }
 
 loginAdminBtn.addEventListener('click',adminVerfication)

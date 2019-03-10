@@ -20,7 +20,7 @@ background-color: rgba(0,0,0,0.5) !important;
 }
 
 .cardTohide{
-    display:none;
+     display:block; 
     height: 100px;
     margin-top: auto;
     margin-bottom: auto;
