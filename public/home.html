@@ -31,9 +31,9 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#courses">Categoris</a></li>
-          <li><a href="#pricing">Authors</a></li>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Categoris</a></li>
+          <li><a href="#">Authors</a></li>
           <li><a href="#" data-target="#login" data-toggle="modal">Sign in</a></li>
           <li class="btn-trial"><a href="#signupSection" id="signupBtn">Sign up</a></li>
         </ul>
@@ -60,11 +60,12 @@
                 <div class="form-group has-feedback">
                   <!----- username -------------->
                   <input class="form-control" placeholder="Username" id="loginUsernameTxt" type="text"
-                    autocomplete="off" />
+                    autocomplete="off" /> 
+             
                   <span
                     style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;"
-                    id="span_loginid"></span>
-                  <!---Alredy exists  ! -->
+                    id="loginNameErrMsg">enter a valid username</span>
+                
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
@@ -72,8 +73,8 @@
                   <input class="form-control" placeholder="Password" id="loginPasswordTxt" type="password"
                     autocomplete="off" />
                   <span
-                    style="display:none;font-weight:bold; position:absolute;color: grey;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;"
-                    id="span_loginpsw"></span>
+                    style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;"
+                    id="loginPassErrMsg">wrong password</span>
                   <!---Alredy exists  ! -->
                   <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
@@ -81,7 +82,7 @@
                   <div class="col-xs-12">
                     <div class="checkbox icheck">
                       <label>
-                        <input type="checkbox" id="loginrem"> Remember Me
+                        <input type="checkbox" id="loginRememberMe"> Remember Me
                       </label>
                     </div>
                   </div>
@@ -160,50 +161,67 @@
         </div>
         <div id="sendmessage">Your message has been sent. Thank you!</div>
         <div id="errormessage"></div> -->
-          <form action="" method="post" role="form" class="contactForm">
-            <div class="col-md-6 col-sm-6 col-xs-12 left">
+          <form action="" method="post" role="form" class="contactForm" >
+            <div class="col-md-8 col-sm-6 col-xs-12 left">
               <div class="form-group">
-                <input type="text" name="name" class="form-control form" id="name" placeholder="Your Name"
+                <input type="text" name="name" class="form-control form" id="signupName" placeholder="Your Name"
                   data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                 <div class="validation"></div>
-              </div>
-              <div class="form-group">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
-                  data-rule="email" data-msg="Please enter a valid email" />
-                <div class="validation"></div>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject"
-                  data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                <div class="validation"></div>
+                <span id="nameErrorMsg"> required</span>
               </div>
             </div>
-
-            <div class="col-md-6 col-sm-6 col-xs-12 right">
+         
+              <div class="col-md-8 col-sm-6 col-xs-12 right">
+                
               <div class="form-group">
-                <input type="text" name="password" class="form-control form" id="password" placeholder="password"
+                <input type="text" class="form-control" name="subject" id="signupUsername" placeholder="username" />    
+                <div class="validation"></div>
+                <span id="usernameErrorMsg">Already exists</span>
+              </div>
+            </div>
+         
+          
+            <div class="col-md-8 col-sm-6 col-xs-12 left">
+              <div class="form-group">
+                <input type="password" name="password" class="form-control form" id="signupPassword" placeholder="password"
                   data-rule="minlen:4" data-msg="Please enter at least 4 digits" />
                 <div class="validation"></div>
+                <span id="pswErrorMsg"> at least 5 characters</span>
               </div>
             </div>
+           
 
-            <div class="col-md-6 col-sm-6 col-xs-12 right">
+            <div class="col-md-8 col-sm-6 col-xs-12 left">
                 <div class="form-group">
-                  <input type="text" name="repeatedPassword" class="form-control form" id="repeatedPassword" placeholder="repeated Password"
+                  <input type="password" name="repeatedPassword" class="form-control form" id="signupRepeatedPassword" placeholder="repeated Password"
                     data-rule="minlen:4" data-msg="Please enter at least 4 digits" />
                   <div class="validation"></div>
+                  <span id="repeatedRswErrorMsg"> not the same password</span>
                 </div>
               </div>
-              <div class="col-md-6 col-sm-6 col-xs-12 right">
+            
+              <div class="col-md-8 col-sm-6 col-xs-12 right">
+                <div class="form-group">
+                  <input type="email" class="form-control" name="email" id="signupEmail" placeholder="Your Email"
+                    data-rule="email" data-msg="Please enter a valid email" />
+                  <div class="validation"></div>
+                  <span id="mailErrorMsg"> not a valid mail</span>
+                </div>
+              </div>
+           
+
+              <div class="col-md-8 col-sm-4 col-xs-12 ">
                   <div class="form-group">
-                      <input type="file" id="imagePath" name="img" accept="image/*">
-                     
+                      <form id="photoForm" action="" method="post" enctype="multipart/form-data">
+                      <input type="file" id="profilePic" name="photo" accept="image/*">
+                      <input type="button" id="uploadBtn" value="upload">
+                    </form>
                   </div>
                 </div>
 
             <div class="col-xs-12">
               <!-- Button -->
-              <button type="submit" id="submit" name="submit"
+              <button type="submit" id="signupSubmit" name="submit"
                 class="form contact-form-button light-form-button oswald light">sign up</button>
             </div>
           </form>

@@ -660,7 +660,7 @@ Footer
     width: 24%;
     padding: 10px 10px;
     margin-bottom: 15px;
-    color: #fff;: #fafafa;
+    color: #fff #fafafa;
     border: 1px solid rgba(119, 81, 81, 0.34);
     width: 24%;
     margin-bottom: 15px;
@@ -778,3 +778,30 @@ Responsive media queries
         text-align: center;
     }
 }
+
+
+/* add by karim  */
+
+#usernameErrorMsg{
+color: red;
+display: none;
+}
+
+#pswErrorMsg{
+    color: red;
+    display: none;
+    }
+
+    #repeatedRswErrorMsg{
+        color: red;
+        display: none;
+        }
+        
+    #mailErrorMsg{
+        color: red;
+        display: none;
+        }
+        #nameErrorMsg{
+            color: red;
+            display: none;
+            }

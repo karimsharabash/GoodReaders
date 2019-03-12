@@ -1,12 +1,7 @@
 
 const mongoose = require('mongoose');
 const userSchema = mongoose.Schema({
-    first_name: {
-        type: String,
-        unique: true,
-        require: true
-    },
-    last_name: {
+    name: {
         type: String,
         require: true
     },
@@ -17,12 +12,15 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        require: true,
-        match: /^\w+\@\w+\.\w{2,3}/
+        require: true
+        // match: /^\w+\@\w+\.\w{2,3}/
     },
     password: {
         type: String,
         required: true
+    },
+    imageName: {
+        type:String 
     },
     books: [{
         book_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Books' },

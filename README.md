@@ -7,3 +7,5 @@ NodeJs project to make website for books recommendations and reviews
 3- npm i express
 4- npm i mongoose
 5- npm i cors
+6- npm i multer 
+7- npm i bcrypt
