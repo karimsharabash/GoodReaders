@@ -20,26 +20,29 @@
 <body>
   <!--Navigation bar-->
   <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="index.html">Good<span>Readers</span></a>
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Good<span>Readers</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#home">Home</a></li>
+            <li><a href="#courses">Categories</a></li>
+            <li><a href="#courses">Books</a></li>
+            <li><a href="#pricing">Authors</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" data-target="#login" data-toggle="modal"><span class="fa fa-sign-in" style="color:#5FCF80"></span> Login</a></li>
+              <li><a href="#signupSection" id="signupBtn"><span class="fa fa-user" style="color:#5FCF80"></span> Sign Up</a></li>
+            </ul> 
+        </div>
       </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Categoris</a></li>
-          <li><a href="#">Authors</a></li>
-          <li><a href="#" data-target="#login" data-toggle="modal">Sign in</a></li>
-          <li class="btn-trial"><a href="#signupSection" id="signupBtn">Sign up</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+    </nav>
   <!--/ Navigation bar-->
   <!--Modal box-->
   <div class="modal fade" id="login" role="dialog">
