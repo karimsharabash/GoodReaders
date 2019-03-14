@@ -805,3 +805,61 @@ display: none;
             color: red;
             display: none;
             }
+
+/*/////  MUHAMMAD ADEL  /////*/
+
+.checked {
+    color: orange;
+  }
+
+.star:hover{
+    color: orange;
+    cursor: pointer;   
+}
+
+/* .star.rated::before{
+    color: orange;
+  } */
+
+.pbook{
+    font-size: 17px;
+    font-weight: bold;
+    color: #222935
+}
+
+.bookSubTitles{
+    color: #5fcf80
+}
+
+.otherData{
+    color: #222935
+}
+
+.bookDetails{
+    margin-left: 3%;
+    margin-top: 5%;
+}
+
+.rating{
+    margin-top: 2%;
+    padding-bottom: 1%;
+    font-weight: bold;
+}
+
+.stars{
+    font-weight: bold;
+}
+
+#userReview{
+    width: 500px;
+    height: 90px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+/*/////  MUHAMMAD ADEL  /////*/
