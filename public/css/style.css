@@ -806,6 +806,12 @@ display: none;
             display: none;
             }
 
+            #uploadBtn{
+                position: absolute;
+                margin-left: -10%;
+                margin-top: -3.5%
+            }
+
 /*/////  MUHAMMAD ADEL  /////*/
 
 .bookProfileDiv{
@@ -828,10 +834,6 @@ display: none;
     color: orange;
     cursor: pointer;   
 }
-
-/* .star.rated::before{
-    color: orange;
-  } */
 
 .pbook{
     font-size: 17px;
