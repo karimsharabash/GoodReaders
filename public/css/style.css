@@ -808,6 +808,18 @@ display: none;
 
 /*/////  MUHAMMAD ADEL  /////*/
 
+.bookProfileDiv{
+    border: 2px solid black;
+    margin: 5% ;
+    padding: 2% ;
+    display: inline-block;
+}
+
+#bookCoverImg{
+    width: auto;
+    height:320px
+}
+
 .checked {
     color: orange;
   }
