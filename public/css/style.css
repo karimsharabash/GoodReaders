@@ -814,16 +814,36 @@ display: none;
 
 /*/////  MUHAMMAD ADEL  /////*/
 
-.bookProfileDiv{
+.bookRating{
+    color: orange;
+}
+
+.bookProfileDiv, .authorProfileDiv{
     border: 2px solid black;
     margin: 5% ;
     padding: 2% ;
     display: inline-block;
 }
 
-#bookCoverImg{
+#bookCoverImg, #authorImg{
     width: auto;
     height:320px
+}
+
+#bookCoverImg:hover{
+    transform: scale(1.03,1.03);
+    transition: 0.7s;
+    cursor: pointer;
+}
+
+.authorPopularBooks{
+    width:150px;
+    height: 215px;
+}
+
+.authorPopularBooks:hover{
+    transform: scale(1.2,1.2);
+    transition: 0.7s;
 }
 
 .checked {
@@ -835,7 +855,7 @@ display: none;
     cursor: pointer;   
 }
 
-.pbook{
+.pbook, .pauthor{
     font-size: 17px;
     font-weight: bold;
     color: #222935
