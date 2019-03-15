@@ -2,7 +2,7 @@ const express = require('express');
 const userModel = require("../models/Users");
 const router = express.Router();
 const bcrypt = require('bcrypt'); // tool to encrypt passwords
-const validator = require("../validation");
+
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: './public/img',
