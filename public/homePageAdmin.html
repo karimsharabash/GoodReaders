@@ -19,44 +19,25 @@
             <input type="button" id="authorBtn" value="Author">
       </div>
   <div class="container">
-    <div class="row">
-<div class="tablediv">
+    <div id="TheCatdiv" class="row CatDiv">
+        <div  class="tablediv">
         <table class="table table-hover " id="CatygroiesTable">
-                <input type="button" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModalCenter" value="+ Add new categories"> 
-                <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th  class="text-center" scope="col">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td  class="text-center">
-                 <input type="button" id="catygoryEditBtn"class="btn btn-info btn-xs " value="Edit">
-                 <input type="button" id="catygorydeleteBtn" class="btn btn-danger btn-xs marginToTheLeft" value="Delete">
-         </td>
-                    
-                  </tr>
-                </tbody>
+                <input type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modalCat" value="+ Add new categories"> 
+                
               </table>
             </div>
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="modalCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalCenterTitle">Enter Catygroies Information</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" id="closemodal"class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
              <h5>Catygory Name</h5>
              <input type="text" id="inputCatygoryBoxName">
-             <h5>Catygory ID</h5>
-             <input type="text" id="inputCatygoryBoxId">
             </div>
             <div class="modal-footer">
                 <span id="pleaseEnterData" class="catygoryFullData">Please enter the full data </span>
@@ -67,6 +48,101 @@
         </div>
       </div>
         </div>
+        <div id="TheBookdiv" class="row BookDiv">
+            <div  class="tablediv">
+                <table class="table table-hover " id="bookTable">
+                        <input type="button" class="btn btn-primary" id="addnewbookBtnInTable" data-toggle="modal" data-target="#modalBook" value="+ Add new Book"> 
+                        <thead>
+                          <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Catygorie</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Image</th>
+                            <th  class="text-center" scope="col">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
+        <div class="modal fade" id="modalBook" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalCenterTitle">Enter Book Information</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                     <h5>Book Name</h5>
+                     <input type="text" id="inputBookBoxName">
+                    
+                    <h5>Catygory Name</h5>
+                     <select id="inputCatTypForTheBookBox">
+                        <!-- <option value="volvo">Volvo</option> -->
+                    </select>
+                    <h5>Author Name</h5>
+                    <select id="inputAuthorTypForTheBookBox"></select>
+                    <h5>Upload Image</h5>
+                    <input type="file" id="inputImageForTheBookBox">
+                   </div>
+                    <div class="modal-footer">
+                        <span id="pleaseEnterDataBook" class="bookFullData">Please enter the full data </span>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" id="addingNewBookBtn" class="btn btn-primary">Save Book</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div id="TheAuthordiv" class="row AuthorDiv">
+            <div  class="tablediv">
+              <table class="table table-hover " id="AuthorTable">
+                      <input type="button" class="btn btn-primary"  data-toggle="modal" id="addnewAuthor" data-target="#modalAuthor" value="+ Add new Author"> 
+                      <!-- <thead>
+                        <tr>
+                          <th scope="col">First name</th>
+                          <th scope="col">Last name</th>
+                          <th scope="col">Date of birth</th>
+                          <th scope="col">Image</th>
+                          <th  class="text-center" scope="col">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody> -->
+                      <!-- </tbody> -->
+                    </table>
+                  </div>
+      <div class="modal fade" id="modalAuthor" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Enter Author Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                   <h5>First name</h5>
+                   <input type="text" id="inputAuthorBoxName">
+                  
+                  <h5>Last name</h5>
+                   <input type="text" id="inputAuthorLastNameBox">
+                  
+                  <h5>Date of birth</h5>
+                  <input type="date" id="inputAuthorDateOfBirthBox">
+                  <h5>Upload Image</h5>
+                  <input type="file" id="inputImageForTheAuthorBox">
+                 </div>
+                  <div class="modal-footer">
+                      <span id="pleaseEnterDataAuthor" class="authorFullData">Please enter the full data </span>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="addingNewAuthorBtn" class="btn btn-primary">Save Author</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+              </div>
       </div>
     <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>  
