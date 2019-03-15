@@ -27,6 +27,22 @@ html,body{
     padding-left:0px;
     display: none; 
 }
+.BookDiv{
+    display: none;
+}
+.AuthorDiv{
+    display: none;
+}
+.CatDiv{
+    display: Block;
+}
+.authorFullData
+{
+    display: none;
+}
+.bookFullData{
+    display: none;
+}
 /*.navbar{
     opacity: 0.3;
     background-color: rgb(148, 97, 97);
