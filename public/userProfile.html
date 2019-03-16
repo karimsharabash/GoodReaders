@@ -14,6 +14,7 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min2.css">
   <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
   <link rel="stylesheet" type="text/css" href="css/UserProfile.css">
+  <link rel="stylesheet" type="text/css" href="css/navStyle.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
 
 </head>
@@ -37,12 +38,26 @@
             <li><a href="#">Books</a></li>
             <li><a href="#">Authors</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" data-target="#UserInfo" data-toggle="modal"> <img class="userImge"src="img/uesricon.png"></a></li>
-             </ul> 
+          <ul class="nav navbar-nav navbar-right" id="iconlist">
+						<li><img id="userImg" src="img/mentor.jpg" >
+							 <ul id="logoutList" >
+									<li>
+										 <input id="logoutBtn" type="submit" value="log out"  >
+									</li>
+							 </ul>
+						 </li>
+				</ul>
         </div>
     </div>
-    </nav>
+		</nav>
+		
+
+
+	  
+	
+
+
+
     <div class="container-fluid max">
         <div class="row">
     <div class="col-md-2 col-sm-4 sidebar1">
@@ -205,6 +220,7 @@
       
     
       <script src="js/jquery.min2.js"></script>
+      <script src="js/navScript.js"></script>
     
       <script src="js/bootstrap.min2.js"></script>
       

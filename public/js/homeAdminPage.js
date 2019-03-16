@@ -361,9 +361,7 @@ function displayingAllTable()
     displayCatygroytable()
     displayTheAuthorsTable()
     
-   // displayThebookTable()
-    
-   
+   // displayThebookTable()  
 }
 window.addEventListener('load',displayingAllTable)
 addingNewCatygoryBtn.addEventListener('click',addingNewCatygoryfunction);

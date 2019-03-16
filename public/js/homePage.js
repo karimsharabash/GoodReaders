@@ -97,6 +97,7 @@ function loginCheck(username, password, rememberFlag) {
             } else if(data == "valid" ){
                 loginNameErrMsg.style.display = "none";
                 loginPassErrMsg.style.display = "none";
+                
             }
         })
 }

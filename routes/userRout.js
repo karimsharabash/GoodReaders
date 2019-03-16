@@ -2,7 +2,7 @@ const express = require('express');
 const userModel = require("../models/Users");
 const router = express.Router();
 const bcrypt = require('bcrypt'); // tool to encrypt passwords
-const validator = require("../validation");
+
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: './public/img',
@@ -38,6 +38,14 @@ router.post("/login", (req, res) => {
 
         })
     }
+  })
+})
+
+router.get("/defineUser" , (req,res)=>
+{
+  userModel.findOne({_id:"5c87a300d4696a2aa07362fa"} , (err,data)=>
+  {
+    res.json(data);
   })
 })
 
