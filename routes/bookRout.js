@@ -23,6 +23,13 @@ router.get("/",(req,res)=>
     })
 })
 
+//route add by rahma to get all books of a certain user ;
+router.get("/author/:id",(req,res)=>{
+   bookModel.find({authorId:req.params.id},(req,res)=>{
+       res.send(res);
+   })
+})
+
 router.delete("/:id",(req,res)=>
 {
    let idToDelete = req.params.id;
