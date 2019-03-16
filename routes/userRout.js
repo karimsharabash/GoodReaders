@@ -28,8 +28,9 @@ router.post("/login", (req, res) => {
         .then((result) => {
           console.log(result);
           if (result) {
-            res.send("valid") //redirect
-            console.log("succeed")
+            req.session.user =  data;
+            console.log("succeed")           
+            res.send("userProfile.html");
           }
           else {
             res.send("wrongPassword");
@@ -41,9 +42,12 @@ router.post("/login", (req, res) => {
   })
 })
 
-router.get("/defineUser" , (req,res)=>
+
+//route for the navbar
+router.get("/nav/defineUser" , (req,res)=>
 {
-  userModel.findOne({_id:"5c87a300d4696a2aa07362fa"} , (err,data)=>
+
+  userModel.findOne({_id:req.session.user._id} , (err,data)=>
   {
     res.json(data);
   })
@@ -54,7 +58,6 @@ router.post("/signup/checkUsername", (req, res) => {
   const Username = req.body.username;
   console.log(Username);
   userModel.findOne({ username: Username }, (err, data) => {
-    console.log(data);
     if (data) res.send("invalid");
     else res.send("valid");
   })
@@ -64,14 +67,18 @@ router.post("/signup/checkUsername", (req, res) => {
 router.post("/signup", (req, res) => {
 
   const newUser = req.body;
-  console.log(newUser);
+  console.log("this will save in DB ");
+  console.log(newUser );
+
   bcrypt.hash(newUser.password, 10)
     .then((hashedPassword) => {
       newUser.password = hashedPassword;
       const user = new userModel(newUser);
       user.save()
         .then(() => {
-          res.send("done");
+
+          req.session.user =  newUser;
+           res.send("userProfile.html");
         })
     })
 

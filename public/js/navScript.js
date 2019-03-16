@@ -2,7 +2,7 @@ const userImg=document.getElementById("userImg");
 window.addEventListener('load',defineTheuser);
 
 function defineTheuser(){
-fetch("http://localhost:3000/user/defineUser" ,
+fetch("http://localhost:3000/user/nav/defineUser" ,
     {
        method:"GET",
        headers: {Accept: 'application/json'},

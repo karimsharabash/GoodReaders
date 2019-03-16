@@ -94,10 +94,8 @@ function loginCheck(username, password, rememberFlag) {
             {
                 loginNameErrMsg.style.display = "none";
                 loginPassErrMsg.style.display = "block";
-            } else if(data == "valid" ){
-                loginNameErrMsg.style.display = "none";
-                loginPassErrMsg.style.display = "none";
-                
+            } else {
+                window.location =data;
             }
         })
 }
@@ -106,44 +104,48 @@ function loginCheck(username, password, rememberFlag) {
 function signup(imgName) {
     //checks =>> username must be unique , no empty field ,same repeated password.
     //   const usernameflag = await checkUsername();
-    let signupFlag = true;
+    let signupNameFlag ;
+    let signupPasswordFlag;
+    let signupRepeatedPasswordFlag ;
+    let signupEmailFlag;
 
     if(signupName.value.length  == 0)
     {
         nameErrorMsg.style.display="block";
-        signupFlag=false;
+        signupNameFlag=false;
     }else{
         nameErrorMsg.style.display="none";
-        signupFlag=true;
+        signupNameFlag=true;
     }
 
     if (signupPassword.value.length < 5) {
         pswErrorMsg.style.display = "block";
-        signupFlag = false;
+        signupPasswordFlag = false;
     }
     else {
-        signupFlag = true;
+        signupPasswordFlag = true;
         pswErrorMsg.style.display = "none";
     }
 
     if (signupPassword.value != signupRepeatedPassword.value) {
         repeatedRswErrorMsg.style.display = "block";
-        signupFlag = false;
+        signupRepeatedPasswordFlag = false;
     } else {
-        signupFlag = true;
+        signupRepeatedPasswordFlag = true;
         repeatedRswErrorMsg.style.display = "none";
     }
     if (signupEmail.value.includes("@") && signupEmail.value.includes(".")) {
         mailErrorMsg.style.display = "none";
-        signupFlag = true;
+        signupEmailFlag = true;
     } else {
         mailErrorMsg.style.display = "block";
-        signupFlag = false;
+        signupEmailFlag = false;
     }
 
 
-    if(signupFlag && usernameFlag)
+    if(signupEmailFlag && signupNameFlag && signupPasswordFlag && signupRepeatedPasswordFlag && usernameFlag)
     {
+        console.log("fron end saving ");
      let user=
      {
          name : signupName.value,
@@ -168,7 +170,7 @@ function signup(imgName) {
      }).then((res) => {
          return res.text();
      }).then(data => {
-         console.log(data);
+        window.location=data;
       
      })
 

@@ -1,0 +1,30 @@
+{
+  "name": "goodreaders",
+  "version": "1.0.0",
+  "description": "NodeJs project to make website for books recommendations and reviews",
+  "main": "index.js",
+  "scripts": {
+    "start" : "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karimsharabash/GoodReaders.git"
+  },
+  "keywords": [],
+  "author": "karim Goda, eslam kamal, rahma faisal , mohamed adel, aya el tayb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karimsharabash/GoodReaders/issues"
+  },
+  "homepage": "https://github.com/karimsharabash/GoodReaders#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.4.19",
+    "multer": "^1.4.1"
+  }
+}
