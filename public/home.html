@@ -14,8 +14,8 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min2.css">
   <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
-
-</head>
+  <link rel="stylesheet" type="text/css" href="css/dropDown.css">
+  </head>
 
 <body>
   <!--Navigation bar-->
@@ -32,7 +32,20 @@
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#home">Home</a></li>
-            <li><a href="#courses">Categories</a></li>
+           <!-- Edited By ayaAltayeb -->
+           <li >
+            <a class="dropdown-toggle" data-toggle="dropdown" id="categoriesMenu">Categoris<span class="caret"></span></a>
+              <div class="dropdown-menu mega-menu" id = "categories" aria-labelledby="navbarDropdown">
+                 
+                <div class="categories">
+                <div>
+                <h4><strong class="dropDownHeading"> All Categories</strong></h4>
+                <p role="separator" class="divider"></p>
+                </div>
+                 
+              </div>
+          </li>  
+          <!-- This is the end of the editing -->
             <li><a href="#courses">Books</a></li>
             <li><a href="#pricing">Authors</a></li>
           </ul>
@@ -255,7 +268,8 @@
 
   <script src="js/bootstrap.min2.js"></script>
   <script src="js/homePage.js"></script>
-
+    <!-- //add here the category js file  -->
+    <script src="js/category.js"></script>
 
 </body>
 

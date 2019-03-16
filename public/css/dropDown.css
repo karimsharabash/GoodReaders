@@ -1,0 +1,44 @@
+        
+        
+    /* By : AyaAltayeb   */
+    .dropDownHeading{ 
+      color:grey;
+      padding-left: 10px;
+    }
+    .mega-menu{
+        width: 800px;
+        overflow: hidden;
+        padding:10px;
+        border-color:transparent;
+        
+        
+      
+    }
+
+    .mega-menu a {
+       text-decoration: none;
+      
+       
+    }
+
+   
+
+     .mega-menu .sub-menu-heading {
+        text-decoration: none;
+        
+        
+     }
+
+     @media(max-width:600px){
+        .mega-menu{
+           width: 200px;
+         }
+     }
+
+     #categoriesMenu{
+      background-color:white;
+      padding: 10px;
+      margin-bottom: 0px;
+     
+
+     }
