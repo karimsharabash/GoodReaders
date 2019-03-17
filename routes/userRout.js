@@ -68,7 +68,7 @@ router.post("/signup", (req, res) => {
 
   const newUser = req.body;
   console.log("this will save in DB ");
-  console.log(newUser );
+  // console.log(newUser );
 
   bcrypt.hash(newUser.password, 10)
     .then((hashedPassword) => {
@@ -76,8 +76,9 @@ router.post("/signup", (req, res) => {
       const user = new userModel(newUser);
       user.save()
         .then(() => {
-
+         
           req.session.user =  newUser;
+          console.log(req.session.user)
            res.send("userProfile.html");
         })
     })

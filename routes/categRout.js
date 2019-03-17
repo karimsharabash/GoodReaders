@@ -46,4 +46,13 @@ router.delete("/:id",(req,res)=>
     })
 })
 
+router.get("/:id",(req,res)=>
+{
+    categoryModel.findOne({_id:req.params.id},(err, category)=>{
+        if(err) throw err ;
+        res.json(category);
+        })
+
+
+})
 module.exports = router;

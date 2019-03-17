@@ -1,8 +1,19 @@
-var stars = document.querySelectorAll('.star');
-var clicked = false;
-var currentRating = 0;
+const stars = document.querySelectorAll('.star');
+const commentForm = document.getElementById('commentForm');
+const comment = document.getElementById('userReview').value;
+const reviewsZone = document.getElementById("allReviews");
+const bookCoverImg= document.getElementById("bookCoverImg");
+const descArea =document.getElementById("descArea");
+const bookTitle = document.getElementById("bookTitle");
+const avgRatingTxt =document.getElementById("avgRatingTxt");
+const ratingsCount=document.getElementById("ratingsCount");
+const authorName=document.getElementById("authorName");
+const categoryName=document.getElementById("categoryName");
 
-var commentForm = document.getElementById('commentForm');
+
+let clicked = false;
+let currentRating = 0;
+
 
 stars.forEach(star => {
     star.addEventListener('click', setRating);
@@ -89,9 +100,7 @@ Displaying & saving the comment or review added by the user with it's date.
 */
 function addComment(e)
 {
-    var comment = document.getElementById('userReview').value;
-    var reviewsZone = document.getElementById("allReviews");
-
+ 
     var commentTime = new Date();
 
     reviewsZone.innerHTML += '<div class="well">'+
@@ -102,4 +111,90 @@ function addComment(e)
     
     commentForm.reset();
     e.preventDefault();
+}
+
+
+// karim code 
+
+window.addEventListener('load',defineTheBook);
+
+function defineTheBook(){
+    
+fetch("http://localhost:3000/book/singleBook" ,
+    {
+       method:"GET",
+       headers: {Accept: 'application/json'},
+    })
+    .then(function(res){ 
+       
+      return res.json();
+    }).then ( data => {
+      
+        console.log(data);
+        bookCoverImg.src ="img/"+data.photoName;
+        descArea.textContent = data.description;
+        bookTitle.textContent =data.name;
+        changeStars(parseInt(data.avgRating));
+        avgRatingTxt.textContent ="(" + data.avgRating + ")";
+        ratingsCount.textContent= data.ratingCount+ " ";
+        getBookAuthor(data.authorId);
+        getBookCategory(data.categoryId);
+})   
+}
+
+function changeStars(rating)
+{
+    const starOne =document.getElementById("starOne")
+    const starTwo =document.getElementById("starTwo")
+    const starThree =document.getElementById("starThree")
+    const starFour =document.getElementById("starFour")
+    const starFive =document.getElementById("starFive")
+    switch(rating)
+    {
+        case 5: 
+         starFive.classList.add("checked");
+         case 4: 
+         starFour.classList.add("checked");
+         case 3: 
+         starThree.classList.add("checked");
+         case 2: 
+         starTwo.classList.add("checked");
+         case 1: 
+         starOne.classList.add("checked"); 
+    }
+}
+
+
+function  getBookAuthor(authorID)
+{
+
+    fetch("http://localhost:3000/author/" + authorID,
+    {
+       method:"GET",
+       headers: {Accept: 'application/json'},
+    })
+    .then(function(res){ 
+       
+      return res.json();
+    }).then ( data => {
+        console.log(data);
+        authorName.textContent =data.first_name + " "+ data.last_name;
+    })
+}
+function getBookCategory(categoryID)
+{
+    {
+
+        fetch("http://localhost:3000/category/" + categoryID,
+        {
+           method:"GET",
+           headers: {Accept: 'application/json'},
+        })
+        .then(function(res){ 
+           
+          return res.json();
+        }).then ( data => {
+            categoryName.textContent =data.name;
+        })
+    }
 }

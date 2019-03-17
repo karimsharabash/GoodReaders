@@ -47,4 +47,15 @@ router.delete("/:id",(req,res)=>
         res.send("category delete"); 
     })
 })
+
+router.get("/:id",(req,res)=>
+{
+  
+    authorModel.findOne({_id:req.params.id},(err, Author)=>{
+        if(err) throw err ;
+        res.json(Author);
+        })
+
+
+})
 module.exports = router;

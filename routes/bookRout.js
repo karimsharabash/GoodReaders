@@ -23,6 +23,18 @@ router.get("/",(req,res)=>
     })
 })
 
+router.get("/singleBook",(req,res)=>
+{
+    bookModel.findOne({_id:"5c8d72bb0806621ec3a77c2d"},(err, Book)=>{
+    if(err) return res.send(err) ;
+
+    console.log(Book)
+        //res.set("content-type","application/json");
+    	res.json(Book);
+    })
+})
+
+
 //route add by rahma to get all books of a certain user ;
 router.get("/author/:id",(req,res)=>{
    bookModel.find({authorId:req.params.id},(req,res)=>{
