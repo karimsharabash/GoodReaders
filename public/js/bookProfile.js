@@ -12,21 +12,17 @@ const categoryName=document.getElementById("categoryName");
 
 
 let clicked = false;
-let currentRating = 0;
+let currentUserRating = 0;
+let abilityToAddRating =true ; //flag that he didn't add rating yet so he can add onkky one
+let averageRating =0;
 
-
+let currentUserId = "5c87a300d4696a2aa07362fa";
+let currentBookId =0 ;
 stars.forEach(star => {
     star.addEventListener('click', setRating);
-});
-
-stars.forEach(star => {
     star.addEventListener('mouseover', hoverStars);
-});
-
-stars.forEach(star => {
     star.addEventListener('mouseout', unhoverStars);
 });
-
 
 /*
 This function sets the rating specified by the user through clicking on a star, the current rating is being saved to use later
@@ -45,10 +41,13 @@ function setRating()
                 }
                 if(star === selectedStar){
                     match = true;
-                    currentRating = index + 1;
+                    currentUserRating = index + 1;
                 }
             });
-            document.querySelector('.stars').setAttribute('data-rating', currentRating);
+
+            updateOldRating(currentUserRating);
+
+            // document.querySelector('.stars').setAttribute('data-rating', currentRating);
 
             /* 
                 Some logic still should be add to send the rating & save it at the back-end in the Database.
@@ -83,7 +82,7 @@ function unhoverStars()
 {
     {
         stars.forEach( (star, index) => {
-            if(index >= currentRating)
+            if(index >= currentUserRating)
             star.classList.remove('checked');
         })
     }
@@ -131,11 +130,13 @@ fetch("http://localhost:3000/book/singleBook" ,
     }).then ( data => {
       
         console.log(data);
+        currentBookId=data._id;
         bookCoverImg.src ="img/"+data.photoName;
         descArea.textContent = data.description;
         bookTitle.textContent =data.name;
-        changeStars(parseInt(data.avgRating));
-        avgRatingTxt.textContent ="(" + data.avgRating + ")";
+        averageRating =parseInt(data.avgRating);
+        changeStars(averageRating);
+        
         ratingsCount.textContent= data.ratingCount+ " ";
         getBookAuthor(data.authorId);
         getBookCategory(data.categoryId);
@@ -164,6 +165,29 @@ function changeStars(rating)
     }
 }
 
+function updateOldRating(newRating)
+{
+    
+
+    let newRatingCount= parseInt(ratingsCount.textContent);
+    if(abilityToAddRating)
+    {
+        newRatingCount ++;
+        abilityToAddRating =false;
+        averageRating +=(newRating/newRatingCount);
+        averageRating = averageRating.toPrecision(2);
+        updateRatingTextAndStars(averageRating);
+        ratingsCount.textContent = newRatingCount + " ";
+    }
+
+    updateUpdateUserRating(averageRating)
+}
+
+function updateRatingTextAndStars(avgRating)
+{
+    avgRatingTxt.textContent ="(" + averageRating + ")";
+    changeStars(averageRating);
+}
 
 function  getBookAuthor(authorID)
 {
@@ -177,24 +201,52 @@ function  getBookAuthor(authorID)
        
       return res.json();
     }).then ( data => {
-        console.log(data);
+   
         authorName.textContent =data.first_name + " "+ data.last_name;
     })
 }
 function getBookCategory(categoryID)
 {
     {
-
         fetch("http://localhost:3000/category/" + categoryID,
         {
            method:"GET",
            headers: {Accept: 'application/json'},
         })
         .then(function(res){ 
-           
           return res.json();
         }).then ( data => {
             categoryName.textContent =data.name;
         })
     }
+}
+
+function updateUserData()
+{
+    //check if there is a old data for this book in this user document
+    //create new relation if there isn't
+    //update the old one if its found
+}
+
+function updateUpdateUserRating(newRating)
+{
+    console.log(currentUserId  + " " +currentBookId );
+   fetch("http://localhost:3000/user/"+currentUserId+"/book/"+currentBookId ,
+   {
+       "method" :"GET" ,
+       headers: {Accept: ['application/json' , "text/plain"] },
+   })
+   .then (res => res.json())
+   .then (response =>
+    {
+        if(response == "not found") //create the relation
+        {
+            
+        }
+        else {                      //update the relation 
+            console.log("book found");
+            console.log(response);
+            
+        }
+    })
 }

@@ -7,12 +7,12 @@ const multer = require('multer');
 const storage = multer.diskStorage({
   destination: './public/img',
   filename: function (req, file, cb) {
-  
-      cb(null, file.originalname );
+
+    cb(null, file.originalname);
   }
 });
 
-const upload = multer({storage : storage });
+const upload = multer({ storage: storage });
 
 router.post("/login", (req, res) => {
   const userData = req.body;
@@ -24,12 +24,12 @@ router.post("/login", (req, res) => {
     console.log(data);
     if (data == null) res.send("invalid");
     else {
-         bcrypt.compare(userData.password, data.password)
+      bcrypt.compare(userData.password, data.password)
         .then((result) => {
           console.log(result);
           if (result) {
-            req.session.user =  data;
-            console.log("succeed")           
+            req.session.user = data;
+            console.log("succeed")
             res.send("userProfile.html");
           }
           else {
@@ -44,11 +44,9 @@ router.post("/login", (req, res) => {
 
 
 //route for the navbar
-router.get("/nav/defineUser" , (req,res)=>
-{
+router.get("/nav/defineUser", (req, res) => {
 
-  userModel.findOne({_id:req.session.user._id} , (err,data)=>
-  {
+  userModel.findOne({ _id: req.session.user._id }, (err, data) => {
     res.json(data);
   })
 })
@@ -76,22 +74,22 @@ router.post("/signup", (req, res) => {
       const user = new userModel(newUser);
       user.save()
         .then(() => {
-         
-          req.session.user =  newUser;
+
+          req.session.user = newUser;
           console.log(req.session.user)
-           res.send("userProfile.html");
+          res.send("userProfile.html");
         })
     })
 
 })
 
-router.post("/image" ,  upload.single('photo'), (req,res) =>{
- console.log(req.file);
-  if(req.file) {
+router.post("/image", upload.single('photo'), (req, res) => {
+  console.log(req.file);
+  if (req.file) {
     console.log("image came");
     res.send("done");
-}
-else res.send("failed");
+  }
+  else res.send("failed");
 
 })
 
@@ -104,15 +102,46 @@ router.get("/", (req, res) => {
 })
 
 
-router.delete("/",(req,res)=>
-{
- //  let idToDelete = req.params.id;
-   
-    userModel.deleteMany()
-    .then( ()=>
-    {
-        res.send("all users  deleted"); 
+router.delete("/", (req, res) => {
+  //  let idToDelete = req.params.id;
+
+  userModel.deleteMany()
+    .then(() => {
+      res.send("all users  deleted");
     })
 })
 
+router.post("/:id/book", (req, res) => {
+  let idToUpdate = req.params.id;
+  let addedBook = req.body;
+  //to only get the array of book not all the user document
+  userModel.findOne({ _id: idToUpdate }, "books" ,(err, user) => {
+    user.books.push(addedBook);
+    user.save(); //to update the user
+    res.send("done");
+  })
+})
+
+router.get("/:userId/book/:bookId" ,(req,res) =>
+{
+  
+  const idToUpdate = req.params.userId;
+  const bookId = req.params.bookId;
+  userModel.findOne({ _id: idToUpdate , "books.book_id" : bookId }, { "_id" : 1, "books" : 1,"username":1} ,(err, user) => {
+       if(user)  // if user is found then there is a relation between this user and this book 
+       {
+        const currentBook = user.books.find(function(element) { 
+        return element.book_id==bookId; 
+      }); 
+      console.log(currentBook);
+      res.json(currentBook);
+    } 
+    else 
+    {
+      console.log("not found");
+      res.json("not found");
+    }
+  }) 
+})
 module.exports = router;
+
