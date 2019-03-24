@@ -122,10 +122,6 @@
       <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
           <h3 class="bookSubTitles">Summary</h3>
       <p class="pbook" id="descArea"> </p>
-
-         
-          
-      
         <br>
 
         <h3  class="bookSubTitles">Author: <span id="authorName" class="otherData">Tom Wood</span></h3>
@@ -133,15 +129,15 @@
       </div>
 
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 bookDetails"> 
-          <select class="form-control" style="width:220px">
-              <option>Currently reading</option>
-              <option>Want to read</option>
-              <option>Read</option>
+          <select id="bookStatusMenu" class="form-control" style="width:220px">
+              <option value="none">  ......  </option>  
+              <option value="reading">Currently reading</option>
+              <option value="wantToRead" >Want to read</option>
+              <option value="read" >Read</option>
           </select>
-
           <br> 
 
-          <div class="stars" data-rating="0">
+          <div id="starDiv" class="stars" data-rating="0">
               <p>-Rate this book-</p>
               <span class="star fa fa-star"></span>
               <span class="star fa fa-star"></span>
