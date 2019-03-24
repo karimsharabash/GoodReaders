@@ -1,5 +1,6 @@
 const express = require('express');
 const authorModel = require("../models/Author");
+const bookModel = require("../models/Book");
 const router = express.Router();
 
 
@@ -15,15 +16,12 @@ router.post("/", (req,res) =>
   })
 })
 
-
 router.get("/",(req,res)=>
 {
     authorModel.find(  (err, allAuthors)=>{
         if(err) throw err ;
         res.send(allAuthors);
         })
-
-
 })
 
 router.put("/:id",(req,res)=>
@@ -55,7 +53,23 @@ router.get("/:id",(req,res)=>
         if(err) throw err ;
         res.json(Author);
         })
-
-
 })
+
+router.get("/popular" , (req,res)=>
+{
+  authorID = req.session.authorID
+
+    bookModel.find({authorId : authorID})
+    .sort({avgRating :-1 })
+    .limit(5)
+    .exec( (err,books) =>
+    {
+        res.send(books);
+    })
+})
+
+
+
 module.exports = router;
+
+

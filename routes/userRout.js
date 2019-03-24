@@ -1,5 +1,6 @@
 const express = require('express');
 const userModel = require("../models/Users");
+const bookModel = require("../models/Book")
 const router = express.Router();
 const bcrypt = require('bcrypt'); // tool to encrypt passwords
 
@@ -17,11 +18,11 @@ const upload = multer({ storage: storage });
 router.post("/login", (req, res) => {
   const userData = req.body;
 
-  console.log(userData);
+
 
   userModel.findOne({ username: userData.username }, (err, data) => {
     if (err) throw err;
-    console.log(data);
+  
     if (data == null) res.send("invalid");
     else {
       bcrypt.compare(userData.password, data.password)
@@ -29,12 +30,10 @@ router.post("/login", (req, res) => {
           console.log(result);
           if (result) {
             req.session.user = data;
-            console.log("succeed")
             res.send("userProfile.html");
           }
           else {
             res.send("wrongPassword");
-            console.log("faild")
           }
 
         })
@@ -65,9 +64,6 @@ router.post("/signup/checkUsername", (req, res) => {
 router.post("/signup", (req, res) => {
 
   const newUser = req.body;
-  console.log("this will save in DB ");
-  // console.log(newUser );
-
   bcrypt.hash(newUser.password, 10)
     .then((hashedPassword) => {
       newUser.password = hashedPassword;
@@ -84,7 +80,7 @@ router.post("/signup", (req, res) => {
 })
 
 router.post("/image", upload.single('photo'), (req, res) => {
-  console.log(req.file);
+  
   if (req.file) {
     console.log("image came");
     res.send("done");
@@ -111,6 +107,8 @@ router.delete("/", (req, res) => {
     })
 })
 
+
+//add new book to user bookList
 router.post("/:id/book", (req, res) => {
   let idToUpdate = req.params.id;
   let addedBook = req.body;
@@ -122,11 +120,14 @@ router.post("/:id/book", (req, res) => {
   })
 })
 
+
+//check if this book already exist in this user bookList
 router.get("/:userId/book/:bookId" ,(req,res) =>
 {
   
   const idToUpdate = req.params.userId;
   const bookId = req.params.bookId;
+  
   userModel.findOne({ _id: idToUpdate , "books.book_id" : bookId }, { "_id" : 1, "books" : 1,"username":1} ,(err, user) => {
        if(user)  // if user is found then there is a relation between this user and this book 
        {
@@ -143,5 +144,45 @@ router.get("/:userId/book/:bookId" ,(req,res) =>
     }
   }) 
 })
+
+
+//modify this book data in this user bookList
+router.put("/:userId/book/:bookId" ,(req,res) =>
+{
+  const idToUpdate = req.params.userId;
+  const BookIdToUpdate = req.params.bookId; 
+  const updatedBook =req.body
+  userModel.findOne({ _id: idToUpdate , "books.book_id" : BookIdToUpdate }, { "_id" : 1, "books" : 1,"username":1} ,(err, user) => {
+    
+    for (book of user.books)
+    {
+      if(book.book_id == BookIdToUpdate)
+      {
+        if(updatedBook.status != " ")
+        {
+          book.status = updatedBook.status;
+        }else {
+          book.rating = updatedBook.rating;
+        }
+      }
+    }
+    console.log(user)
+     user.save();
+    res.send("done");
+
+  })
+})
+
+router.get("/popular", (req,res)=>
+{
+  bookModel.find()
+  .sort({avgRating :-1 })
+  .limit(5)
+  .exec( (err,books) =>
+  {
+    res.send(books)
+  })
+})
+
 module.exports = router;
 
