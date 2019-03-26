@@ -1,5 +1,3 @@
-
-
 const mongoose  = require('mongoose');
 const authorSchema = mongoose.Schema({
    
@@ -16,6 +14,9 @@ const authorSchema = mongoose.Schema({
         required:true
     },
     photoName:{
+        type:String,
+    },
+    biography:{
         type:String,
     }
 

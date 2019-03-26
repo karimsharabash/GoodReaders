@@ -9,6 +9,7 @@ const cors = require('cors');
 const path= require("path");
 const  cookieParser = require('cookie-parser');
 const session = require('express-session');
+const publicPath = require("./public/Path");
 mongoose.connect('mongodb://localhost:27017/bookDB', () => {
     console.log("connected to database");
 })
@@ -76,5 +77,7 @@ app.use("/category", categoryRout);
 app.use("/user", userRout);
 app.use("/book",bookRout)
 app.use("/author", authorRout);
-
+app.get('/home',(req,res)=>{
+    res.sendFile(publicPath+"/home.html")
+})
 app.listen(3000);
