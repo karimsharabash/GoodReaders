@@ -1,0 +1,54 @@
+#authorProfileDiv{
+    border: 2px solid black;
+    margin: 5% ;
+    padding: 2% ;
+    display: inline-block;
+    width: 90%;
+}
+
+#authorImg{
+    width: auto;
+    height:320px
+}
+
+#bookCoverImg:hover{
+    transform: scale(1.03,1.03);
+    transition: 0.7s;
+    cursor: pointer;
+}
+
+.authorPopularBooks{
+    width:150px;
+    height: 215px;
+}
+
+.authorPopularBooks:hover{
+    transform: scale(1.2,1.2);
+    transition: 0.7s;
+}
+
+.pauthor{
+    font-size: 17px;
+    font-weight: bold;
+    color: #222935
+}
+
+
+
+.bookDetails{
+    margin-left: 3%;
+    margin-top: 5%;
+}
+
+
+#userReview{
+    width: 500px;
+    height: 90px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}

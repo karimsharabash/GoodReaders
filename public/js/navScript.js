@@ -10,9 +10,7 @@ fetch("http://localhost:3000/user/nav/defineUser" ,
     .then(function(res){ 
       return res.json();
     }).then ( data => {
-      console.log("loged in user ");
-
-        console.log(data);
+        console.log(data.imageName);
         userImg.src ="img/"+data.imageName;
 })   
 }

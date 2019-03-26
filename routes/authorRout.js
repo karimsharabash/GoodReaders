@@ -1,8 +1,7 @@
 const express = require('express');
 const authorModel = require("../models/Author");
-const bookModel = require("../models/Book");
 const router = express.Router();
-
+const publicPath = require("../public/Path");
 
 router.post("/", (req,res) =>
 {
@@ -16,12 +15,47 @@ router.post("/", (req,res) =>
   })
 })
 
+//routes has been changed by rahma to / and /author
+
 router.get("/",(req,res)=>
 {
+   
+    res.sendFile(publicPath+"/authors.html");
+
+})
+
+router.get("/Author",(req,res)=>
+{
+    
     authorModel.find(  (err, allAuthors)=>{
         if(err) throw err ;
+        console.log(allAuthors)
         res.send(allAuthors);
         })
+
+})
+
+//route add by rahma to get one author
+
+
+router.get("/single/Author",(req,res)=>
+{
+  
+ res.sendFile(publicPath+"/authorProfile.html");
+ 
+  
+})
+
+router.get("/:id",(req,res)=>
+{
+    console.log(req.params.id)
+   authorModel.findOne({_id:req.params.id})
+    .then((data) =>
+    { 
+        res.send(data)
+        
+
+    })
 })
 
 router.put("/:id",(req,res)=>
@@ -45,31 +79,4 @@ router.delete("/:id",(req,res)=>
         res.send("category delete"); 
     })
 })
-
-router.get("/:id",(req,res)=>
-{
-  
-    authorModel.findOne({_id:req.params.id},(err, Author)=>{
-        if(err) throw err ;
-        res.json(Author);
-        })
-})
-
-router.get("/popular" , (req,res)=>
-{
-  authorID = req.session.authorID
-
-    bookModel.find({authorId : authorID})
-    .sort({avgRating :-1 })
-    .limit(5)
-    .exec( (err,books) =>
-    {
-        res.send(books);
-    })
-})
-
-
-
 module.exports = router;
-
-

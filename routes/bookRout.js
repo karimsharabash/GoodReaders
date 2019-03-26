@@ -1,7 +1,7 @@
 const express = require('express');
 const bookModel = require("../models/Book");
 const router = express.Router();
-
+const publicPath = require("../public/Path");
 router.post("/", (req,res) =>
 {
   let newBook=req.body;
@@ -14,7 +14,7 @@ router.post("/", (req,res) =>
   })
 })
 
-router.get("/",(req,res)=>
+router.get("/books",(req,res)=>
 {
     bookModel.find({},(err, books)=>{
     if(err) return res.send(err) ;
@@ -23,22 +23,38 @@ router.get("/",(req,res)=>
     })
 })
 
+router.get("/",(req,res)=>
+{       
+        res.sendFile(publicPath+'/Allbooks.html') 
+})
+
+router.get("/singlebook",(req,res)=>
+{       
+        res.sendFile(publicPath+'/bookProfile.html') 
+})
+
 router.get("/singleBook",(req,res)=>
 {
-    bookModel.findOne({_id:"5c8d72bb0806621ec3a77c2d"},(err, Book)=>{
+    bookModel.findOne({_id:"5c90d1326c4a64731afa2b27"},(err, Book)=>{
     if(err) return res.send(err) ;
 
-    console.log(Book)
+   
         //res.set("content-type","application/json");
     	res.json(Book);
     })
 })
 
 
-//route add by rahma to get all books of a certain user ;
+//route add by rahma to get all books of a certain author ;
 router.get("/author/:id",(req,res)=>{
-   bookModel.find({authorId:req.params.id},(req,res)=>{
-       res.send(res);
+   bookModel.find({authorId:req.params.id},(err,authorBooks)=>{
+    if(err) return res.send(err) ;
+
+    console.log(authorBooks)
+    console.log("books are here")
+        
+    	res.send(authorBooks);
+    //    res.send(res);
    })
 })
 

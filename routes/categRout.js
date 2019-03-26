@@ -16,12 +16,23 @@ router.post("/", (req,res) =>
 
 router.get("/",(req,res)=>
 {
-    categoryModel.find(  (err, allCategories)=>{
+    categoryModel.find((err, allCategories)=>{
         if(err) throw err ;
         res.send(allCategories);
+
         })
 
 
+})
+
+
+router.get("/:id",(req,res)=>
+{
+   categoryModel.findOne({_id:req.params.id})
+    .then((data) =>
+    { 
+        res.send(data); 
+    })
 })
 
 router.put("/:id",(req,res)=>
@@ -46,13 +57,5 @@ router.delete("/:id",(req,res)=>
     })
 })
 
-router.get("/:id",(req,res)=>
-{
-    categoryModel.findOne({_id:req.params.id},(err, category)=>{
-        if(err) throw err ;
-        res.json(category);
-        })
 
-
-})
 module.exports = router;

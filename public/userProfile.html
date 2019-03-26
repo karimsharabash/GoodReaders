@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Home Page</title>
+  <title>Profile</title>
   <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
   <meta name="keywords"
     content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
@@ -13,10 +13,11 @@
   <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min2.css">
   <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
-  <link rel="stylesheet" type="text/css" href="css/UserProfile.css">
-  <link rel="stylesheet" type="text/css" href="css/navStyle.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
-
+  <link rel="stylesheet" type="text/css" href="css/userProfile.css">
+  <link rel="stylesheet" type="text/css" href="css/navStyle.css">
+  <link rel="stylesheet" type="text/css" href=" https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="css/dropDown.css">
 </head>
 
 <body>
@@ -29,14 +30,20 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" >Good<span>Readers</span></a>
+          <a class="navbar-brand" href="index.html">Good<span>Readers</span></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li ><a href="#home">Home</a></li>
-            <li><a href="#">Categories</a></li>
-            <li><a href="#">Books</a></li>
-            <li><a href="#">Authors</a></li>
+            <li ><a href="home">Home</a></li>
+            <li >
+              <a class="dropdown-toggle" data-toggle="dropdown" id="categoriesMenu">Categoris<span class="caret"></span></a>
+                <div class="dropdown-menu mega-menu" id = "categories" aria-labelledby="navbarDropdown">
+                   
+                
+                </div>
+            </li>  
+            <li><a href="book">Books</a></li>
+            <li><a href="author">Authors</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" id="iconlist">
 						<li><img id="userImg" src="img/mentor.jpg" >
@@ -48,184 +55,37 @@
 						 </li>
 				</ul>
         </div>
-    </div>
-		</nav>
-		
-
-
-	  
-	
-
-
-
-    <div class="container-fluid max">
-        <div class="row">
-    <div class="col-md-2 col-sm-4 sidebar1">
-        <div class="left-navigation">
-            <ul class="list">
-                <h5><strong>My Books</strong></h5>
-                <li>All</li>
-                <li>Read</li>
-                <li>Currently reading </li>
-                <li>Want to read</li>
-            </ul>
-        </div>
-    </div>
-    <div class="modal fade" id="UserInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">User Profile</h5>
-              <button type="button" id="closemodal"class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-           <button>Log out</button>
-            </div>
-          </div>
-        </div>
       </div>
-  </div>
-  </div>
-  <div class="limiter">
-		<div class="container-table100">
-			<div class="wrap-table100">
-				<div class="table100 ver1 m-b-110">
-					<div class="table100-head">
-						<table>
-							<thead>
-								<tr class="row100 head">
-									<th class="cell100 column1">Class name</th>
-									<th class="cell100 column2">Type</th>
-									<th class="cell100 column3">Hours</th>
-									<th class="cell100 column4">Trainer</th>
-									<th class="cell100 column5">Spots</th>
-								</tr>
-							</thead>
-						</table>
-					</div>
-
-					<div class="table100-body js-pscroll">
-						<table>
-							<tbody>
-								<tr class="row100 body">
-									<td class="cell100 column1">Like a butterfly</td>
-									<td class="cell100 column2">Boxing</td>
-									<td class="cell100 column3">9:00 AM - 11:00 AM</td>
-									<td class="cell100 column4">Aaron Chapman</td>
-									<td class="cell100 column5">10</td>
-								</tr>
-
-								<tr class="row100 body">
-									<td class="cell100 column1">Mind & Body</td>
-									<td class="cell100 column2">Yoga</td>
-									<td class="cell100 column3">8:00 AM - 9:00 AM</td>
-									<td class="cell100 column4">Adam Stewart</td>
-									<td class="cell100 column5">15</td>
-								</tr>
-
-								<tr class="row100 body">
-									<td class="cell100 column1">Crit Cardio</td>
-									<td class="cell100 column2">Gym</td>
-									<td class="cell100 column3">9:00 AM - 10:00 AM</td>
-									<td class="cell100 column4">Aaron Chapman</td>
-									<td class="cell100 column5">10</td>
-								</tr>
-
-								<tr class="row100 body">
-									<td class="cell100 column1">Wheel Pose Full Posture</td>
-									<td class="cell100 column2">Yoga</td>
-									<td class="cell100 column3">7:00 AM - 8:30 AM</td>
-									<td class="cell100 column4">Donna Wilson</td>
-									<td class="cell100 column5">15</td>
-								</tr>
-
-								<tr class="row100 body">
-									<td class="cell100 column1">Playful Dancer's Flow</td>
-									<td class="cell100 column2">Yoga</td>
-									<td class="cell100 column3">8:00 AM - 9:00 AM</td>
-									<td class="cell100 column4">Donna Wilson</td>
-									<td class="cell100 column5">10</td>
-								</tr>
-
-								<tr class="row100 body">
-									<td class="cell100 column1">Zumba Dance</td>
-									<td class="cell100 column2">Dance</td>
-									<td class="cell100 column3">5:00 PM - 7:00 PM</td>
-									<td class="cell100 column4">Donna Wilson</td>
-									<td class="cell100 column5">20</td>
-								</tr>
-
-								<tr class="row100 body">
-									<td class="cell100 column1">Cardio Blast</td>
-									<td class="cell100 column2">Gym</td>
-									<td class="cell100 column3">5:00 PM - 7:00 PM</td>
-									<td class="cell100 column4">Randy Porter</td>
-									<td class="cell100 column5">10</td>
-								</tr>
-
-								<tr class="row100 body">
-									<td class="cell100 column1">Pilates Reformer</td>
-									<td class="cell100 column2">Gym</td>
-									<td class="cell100 column3">8:00 AM - 9:00 AM</td>
-									<td class="cell100 column4">Randy Porter</td>
-									<td class="cell100 column5">10</td>
-								</tr>
-
-								<tr class="row100 body">
-									<td class="cell100 column1">Supple Spine and Shoulders</td>
-									<td class="cell100 column2">Yoga</td>
-									<td class="cell100 column3">6:30 AM - 8:00 AM</td>
-									<td class="cell100 column4">Randy Porter</td>
-									<td class="cell100 column5">15</td>
-								</tr>
-
-								<tr class="row100 body">
-									<td class="cell100 column1">Yoga for Divas</td>
-									<td class="cell100 column2">Yoga</td>
-									<td class="cell100 column3">9:00 AM - 11:00 AM</td>
-									<td class="cell100 column4">Donna Wilson</td>
-									<td class="cell100 column5">20</td>
-								</tr>
-
-								<tr class="row100 body">
-									<td class="cell100 column1">Virtual Cycle</td>
-									<td class="cell100 column2">Gym</td>
-									<td class="cell100 column3">8:00 AM - 9:00 AM</td>
-									<td class="cell100 column4">Randy Porter</td>
-									<td class="cell100 column5">20</td>
-								</tr>
-
-								<tr class="row100 body">
-									<td class="cell100 column1">Like a butterfly</td>
-									<td class="cell100 column2">Boxing</td>
-									<td class="cell100 column3">9:00 AM - 11:00 AM</td>
-									<td class="cell100 column4">Aaron Chapman</td>
-									<td class="cell100 column5">10</td>
-								</tr>
-
-								</tbody>
-						</table>
-					</div>
-				</div>
-  </div>
-  </div>
-  </div>
-    <footer id="footer" class="footer ">
-        <div class="container text-center ">
-          ©2019 GoodReaders. All rights reserved
-        </div>
-      </footer>
-      
-    
-      <script src="js/jquery.min2.js"></script>
-      <script src="js/navScript.js"></script>
-    
-      <script src="js/bootstrap.min2.js"></script>
-      
-    
-    
+    </nav>
+    <div class="sidenav">
+            <h5>My books</h5>
+            <a id="allBooks"href="#">All</a>
+            <a id="readingBook"href="#">Reading</a>
+            <a id="currntlyRead"href="#">Currntly Reading</a>
+            <a id="wishToRead"href="#">Want To read</a>
+          </div>
+    <div class="container marginToTheTop">
+    <table  id="myTable"class="table display">
+        <thead class="headerColor">
+            <tr>
+              <th scope="col">Cover</th>
+              <th scope="col">Name</th>
+              <th scope="col">Author</th>
+              <th scope="col">Avg Rating</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Shelve</th>
+            </tr>
+          </thead>
+        <tbody>
+        </tbody>
+      </table>
+      </div>
     </body>
-    
+    <script src="js/jquery.min2.js"></script>
+    <script src="js/bootstrap.min2.js"></script>
+    <script src="js/navScript.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="js/userProfile.js"></script>
+    <script src="js/category.js"></script>
+
     </html>

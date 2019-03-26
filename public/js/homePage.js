@@ -95,6 +95,7 @@ function loginCheck(username, password, rememberFlag) {
                 loginNameErrMsg.style.display = "none";
                 loginPassErrMsg.style.display = "block";
             } else {
+               
                 window.location =data;
             }
         })

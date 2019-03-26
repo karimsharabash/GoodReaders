@@ -184,5 +184,14 @@ router.get("/popular", (req,res)=>
   })
 })
 
+
+router.get("/:id", (req, res) => {
+  console.log("hyy")
+  userModel.findOne({_id:req.params.id},(err, user) => {
+    if (err) throw err;
+    res.send(user);
+  })
+})
+
 module.exports = router;
 

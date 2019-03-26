@@ -12,8 +12,10 @@
 }
 
 #userImg{
-    height: 10%;
-     width: 15%;
+    margin-top:5px;
+    margin-left: 20px; 
+    height: 50px;
+     width: 50px;
     background-color: #C1E3D2;
     border-radius: 25px;
     border:2px solid #C1E3D2;
@@ -30,8 +32,9 @@
     background-color: transparent; 
     width: 115px;
     height: 50px;
+
     position: absolute;
-    /* left:20px; */
+    
 } 
 #iconlist:hover #logoutList {
     display: block;

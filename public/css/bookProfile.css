@@ -1,0 +1,44 @@
+#bookProfileDiv{
+    border: 2px solid black;
+    margin: 5% ;
+    padding: 2% ;
+    display: inline-block;
+}
+
+.pbook{
+    font-size: 17px;
+    font-weight: bold;
+    color: #222935
+}
+
+.bookSubTitles{
+    color: #5fcf80
+}
+
+.rating{
+    margin-top: 2%;
+    padding-bottom: 1%;
+    font-weight: bold;
+}
+
+.stars{
+    font-weight: bold;
+}
+
+#bookCoverImg{
+    width: auto;
+    height:320px
+}
+
+.checked {
+    color: orange;
+  }
+
+.star:hover{
+    color: orange;
+    cursor: pointer;   
+}
+
+.otherBookInfo{
+    color: #222935
+}

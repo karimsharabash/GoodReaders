@@ -9,11 +9,12 @@
 					content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
 			
 					<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
-					<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-					<link rel="stylesheet" type="text/css" href="css/bootstrap.min2.css">
-					<link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
-				<link rel="stylesheet" type="text/css" href="css/style.css">
-				<link rel="stylesheet" type="text/css" href="css/books.css">
+					<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css">
+					<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min2.css">
+					<link rel="stylesheet" type="text/css" href="../../css/imagehover.min.css">
+				<link rel="stylesheet" type="text/css" href="../../css/style.css">
+				 <link rel="stylesheet" type="text/css" href="../../css/dropDown.css">
+				<link rel="stylesheet" type="text/css" href="../../css/authorProfile.css">
 			
 			</head>
 		<body>
@@ -28,12 +29,18 @@
 									<a class="navbar-brand" href="index.html">Good<span>Readers</span></a>
 								</div>
 								<div class="collapse navbar-collapse" id="myNavbar">
-									<ul class="nav navbar-nav">
-										<li><a href="#home">Home</a></li>
-										<li><a href="#categories">Categories</a></li>
-										<li><a href="#books">Books</a></li>
-										<li  class="active"><a href="#authors">Authors</a></li>
-									</ul>
+								  <ul class="nav navbar-nav">
+            <li ><a href="../../home">Home</a></li>
+            <li >
+              <a class="dropdown-toggle" data-toggle="dropdown" id="categoriesMenu">Categoris<span class="caret"></span></a>
+                <div class="dropdown-menu mega-menu" id = "categories" aria-labelledby="navbarDropdown">
+                   
+                </div>
+            </li>  
+            <li><a href="../../book">Books</a></li>
+            <li><a href=".../../author">Authors</a></li>
+          </ul>
+        
 									<ul class="nav navbar-nav navbar-right">
 											<li><a href="#" data-target="#login" data-toggle="modal"><span class="fa fa-sign-in" style="color:#5FCF80"></span> Login</a></li>
 												<li><a href="home.html#signupSection" id="signupBtn"><span class="fa fa-user" style="color:#5FCF80"></span> Sign Up</a></li>
@@ -99,30 +106,14 @@
 				</div>
 			<br> <br>
 		
-			<div class="authorProfileDiv">
-				<div class="row" >
-					<img id="authorImg" src="img/CharlesDickens.jpg" alt="authorImage">
-					<h3 style="color:#5FCF80">Biography</h3>
-					<div class="col-lg-11 col-md-10 col-sm-10 col-xs-10" style="margin-left:-1%">
-					<p class="pauthor">Charles John Huffam Dickens (7 February 1812 – 9 June 1870) was an English writer and social critic. He created some of the world's best-known fictional characters and is regarded by many as the greatest novelist of the Victorian era. His works enjoyed unprecedented popularity during his lifetime, and by the 20th century critics and scholars had recognised him as a literary genius. His novels and short stories are still widely read today.</p>
-					<p class="pauthor">Born in Portsmouth, Dickens left school to work in a factory when his father was incarcerated in a debtors' prison. Despite his lack of formal education, he edited a weekly journal for 20 years, wrote 15 novels, five novellas, hundreds of short stories and non-fiction articles, lectured and performed readings extensively, was an indefatigable letter writer, and campaigned vigorously for children's rights, education, and other social reforms.</p>					
-				</div>				
+			
+			<div id="authorProfileDiv">
+				<div id="authorInfo">
+					
 				</div>
 
-				<div id="authorPopularBooksDiv" class="row">
-					<h2 style="color:#5FCF80">Popular books</h2>
-						<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-							<a href=""><img class="authorPopularBooks" src="img/Dickens1.jpg"></a>
-						</div>
-						<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-								<a href=""><img class="authorPopularBooks" src="img/Dickens2.jpg"></a>
-						</div>
-						<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-								<a href=""><img class="authorPopularBooks" src="img/Dickens3.jpg"></a>
-						</div>
-						<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-								<a href=""><img class="authorPopularBooks" src="img/Dickens4.jpg"></a>
-						</div>
+				<div id="popularBooks" class="row">
+					
 				</div>
 			</div>
 
@@ -141,9 +132,9 @@
 				</div>
 			</div>
 		</footer>
-		<script src="js/jquery.min2.js"></script>
-
-		<script src="js/bootstrap.min2.js"></script>
-		<!-- <script src="js/homePage.js"></script> -->
+		<script src="../../js/jquery.min2.js"></script>
+        <script src="../../js/authorProfile.js"></script>
+		<script src="../../js/bootstrap.min2.js"></script>
+		<script src="../../js/category.js"></script>
 </body>
 </html>
