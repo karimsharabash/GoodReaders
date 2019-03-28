@@ -78,6 +78,7 @@ app.use("/user", userRout);
 app.use("/book",bookRout)
 app.use("/author", authorRout);
 app.get('/home',(req,res)=>{
+ 
     res.sendFile(publicPath+"/home.html")
 })
 app.listen(3000);

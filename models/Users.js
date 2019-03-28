@@ -24,7 +24,7 @@ const userSchema = mongoose.Schema({
     },
     books: [{
         book_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Books' },
-        rating: Number,
+        rating: {type:Number,default:0},
         status: { type: String, enum: ['read', 'reading', 'wantToRead'] }
     }]
 

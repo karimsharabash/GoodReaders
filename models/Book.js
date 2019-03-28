@@ -4,7 +4,7 @@ const mongoose  = require('mongoose');
 const bookSchema = mongoose.Schema({
     name:{
         type:String,
-        require:true
+        require:true            
     },
     categoryId:{
         type: mongoose.Schema.Types.ObjectId,
@@ -16,13 +16,8 @@ const bookSchema = mongoose.Schema({
         ref:"Authers",
         required:true
     },
-    avgRating:{
-        type:Number,
-    },
-    ratingCount:
-    {
-      type:Number,   
-    },
+    avgRating:{type:Number,default:0},         
+    ratingCount:{type:Number,default:0},
     photoName:{
         type:String,
     },
