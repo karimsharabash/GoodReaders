@@ -46,6 +46,8 @@ router.post("/login", (req, res) => {
 //route for the navbar
 router.get("/nav/defineUser", (req, res) => {
   console.log("define user in the server")
+  // 
+  // "5c8d581db112790d77f9fe3a"
   userModel.findOne({ _id: req.session.user._id })
   .populate('books.book_id')
   .exec((err,data)=>{

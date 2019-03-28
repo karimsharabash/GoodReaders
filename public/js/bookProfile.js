@@ -17,22 +17,9 @@ let clicked = true;
 let currentUserRating = 0;
 let abilityToAddRating = true; //flag that he didn't add rating yet so he can add onkky one
 let averageRating = 0;
-let bookStatus = ""
-let currentUserId;
+let bookStatus = "";
 let currentBookId = 0;
 
-
-fetch("http://localhost:3000/user/nav/defineUser" ,
-    {
-       method:"GET",
-       headers: {Accept: 'application/json'},
-    })  
-    .then(function(res){ 
-      return res.json();
-    }).then(function(res){
-        currentUserId=res._id
-        console.log(res)
-    })
 
 stars.forEach(star => {
     star.addEventListener('click', setRating);
@@ -108,10 +95,8 @@ commentForm.addEventListener('submit', addComment)
 function addComment(e) {
     e.preventDefault();
     var commentTime = new Date();
-    console.log("comment")
-    console.log(comment.value)
-    postReview("Adel", comment.value , commentTime )
-
+    postReview(currentUserName, comment.value , commentTime )
+    sendReviewToServer(comment.value );
     commentForm.reset();
 
 }
@@ -124,6 +109,20 @@ function postReview(username , comment , time )
     "<p>" +comment + "</p>"+
      time.toUTCString()+
     '</div>';
+}
+
+function sendReviewToServer(comment )
+{   
+    fetch("http://localhost:3000/review",
+    {
+        "method" :"POST",
+        body:JSON.stringify({"bookId" :currentBookId,"userId" : currentUserId, "content":comment })      
+    })
+    .then(res => res.text())
+    .then(respone =>
+    {
+        console.log(respone);
+    })
 }
 
 window.addEventListener('load', defineTheBook);
