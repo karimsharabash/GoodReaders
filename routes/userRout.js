@@ -29,6 +29,7 @@ router.post("/login", (req, res) => {
         .then((result) => {
           console.log(result);
           if (result) {
+            
             req.session.user = data;
             res.send("userProfile.html");
           }
@@ -44,9 +45,11 @@ router.post("/login", (req, res) => {
 
 //route for the navbar
 router.get("/nav/defineUser", (req, res) => {
-
-  userModel.findOne({ _id: req.session.user._id }, (err, data) => {
-    res.json(data);
+  console.log("define user in the server")
+  userModel.findOne({ _id: req.session.user._id })
+  .populate('books.book_id')
+  .exec((err,data)=>{
+       res.json(data)
   })
 })
 
@@ -88,6 +91,8 @@ router.post("/image", upload.single('photo'), (req, res) => {
   else res.send("failed");
 
 })
+
+
 
 
 router.get("/", (req, res) => {
@@ -186,7 +191,6 @@ router.get("/popular", (req,res)=>
 
 
 router.get("/:id", (req, res) => {
-  console.log("hyy")
   userModel.findOne({_id:req.params.id},(err, user) => {
     if (err) throw err;
     res.send(user);

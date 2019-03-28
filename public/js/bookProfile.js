@@ -18,8 +18,22 @@ let currentUserRating = 0;
 let abilityToAddRating = true; //flag that he didn't add rating yet so he can add onkky one
 let averageRating = 0;
 let bookStatus = ""
-let currentUserId = "5c8d581db112790d77f9fe3a";
+let currentUserId;
 let currentBookId = 0;
+
+
+fetch("http://localhost:3000/user/nav/defineUser" ,
+    {
+       method:"GET",
+       headers: {Accept: 'application/json'},
+    })
+    .then(function(res){ 
+      return res.json();
+    }).then(function(res){
+        currentUserId=res._id
+        console.log(res)
+    })
+
 stars.forEach(star => {
     star.addEventListener('click', setRating);
     star.addEventListener('mouseover', hoverStars);
@@ -120,16 +134,18 @@ window.addEventListener('load', defineTheBook);
 
 function defineTheBook() {
 
-    fetch("http://localhost:3000/book/singleBook",
+    fetch("http://localhost:3000/book/define/Book",
     {
             method: "GET",
             headers: { Accept: 'application/json' },
         })
         .then(function (res) {
-
-            return res.json();
-        }).then(data => {
             
+            return res.json();
+           
+        }).then(data => {
+            console.log("sads")
+            console.log(data);
             currentBookId = data._id;
             bookCoverImg.src = "../../img/" + data.photoName;
             descArea.textContent = data.description;

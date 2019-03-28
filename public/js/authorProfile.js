@@ -1,6 +1,5 @@
-let authorId = "5c90cede723a0c5efff8994e" ;
-
-fetch('http://localhost:3000/author/'+authorId,
+var popularBooks = document.getElementById("popularBooks");
+fetch('http://localhost:3000/author/authorInfo',
 {
    method:"GET",
    headers: {Accept: 'application/json'},
@@ -33,7 +32,7 @@ function displayAuthorData(author)
 
 async function fetchAuthorBooks()
 {
-    await fetch('http://localhost:3000/book/author/'+authorId,
+    await fetch('http://localhost:3000/book/author/info',
     {
     method:"GET",
     headers: {Accept: 'application/json'},
@@ -42,6 +41,7 @@ async function fetchAuthorBooks()
         return res.json();
     
     }).then( data =>{
+        console.log(data)
         displayAuthorBooks(data);
        
     })
@@ -57,8 +57,9 @@ function displayAuthorBooks(book)
     <h2 style="color:#5FCF80">Popular books</h2>
     </div>
     </div>`;
+    //add event listener here to go to single book page 
 
-    var popularBooks = document.getElementById("popularBooks");
+   
     var counterForBooks=4;
     book.forEach(element => {
         
@@ -66,7 +67,7 @@ function displayAuthorBooks(book)
         {
         popularBooks.innerHTML += `
 			<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-				<a href=""><img class="authorPopularBooks" src="../../img/${element.photoName}"></a>
+				<a href="/book/singlebook"><img class="authorPopularBooks"id="${element._id}" src="../../img/${element.photoName}"></a>
             </div>
         `
         counterForBooks--;    
@@ -74,3 +75,19 @@ function displayAuthorBooks(book)
     
     });
 }
+
+function settingTheRequiredBook(event)
+{
+    fetch('http://localhost:3000/book/settingTheRequiredBook/'+event.target.id,
+{
+   method:"GET",
+   headers: {Accept: 'application/json'},
+})
+.then(res => { 
+    return res.json();
+
+  
+})
+}
+
+popularBooks.addEventListener('click',settingTheRequiredBook)

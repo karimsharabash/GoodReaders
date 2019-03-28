@@ -1,9 +1,9 @@
 let categoryName;
-
+let booksDiv = document.getElementById("booksList")
 
 async function CategoryName(id,book)
 {
-    let booksDiv = document.getElementById("booksList")
+    
 
     await fetch('http://localhost:3000/category/'+id,
     {
@@ -20,9 +20,9 @@ async function CategoryName(id,book)
     booksDiv.innerHTML+= `
   <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
     <div class="card cats" style="width: 18rem;">
-    <a href="/book/singlebook"><img class="card-img-top bookImg" src="img/${book.photoName}" alt="Card image cap"></a>
+    <a href="/book/singlebook"><img id="${book._id} "class="card-img-top bookImg" src="img/${book.photoName}" alt="Card image cap"></a>
     <div class="card-body">
-      <h4>4.4 <span class="bookRating fa fa-star"></span><br><a href="book/${book._id}"> ${book.name}</a> </h4>
+      <h4>4.4 <span class="bookRating fa fa-star"></span><br><a > ${book.name}</a> </h4>
       <h4> Category: ` + categoryName + `</h4>
       <p class="card-text">${book.description}.</p>
     </div>
@@ -78,5 +78,24 @@ function showingBooks(data)
   data.map( async (book) => {
   await CategoryName(book.categoryId, book);
   console.log(book.categoryId)
+  console.log(book)
   })
 }
+
+function settingTheRequiredBook(event)
+{
+  
+  fetch('http://localhost:3000/book/settingTheRequiredBook/'+event.target.id,
+    {
+       method:"GET",
+       headers: {Accept: 'application/json'},
+    })
+    .then(function(res){ 
+      
+})
+
+}
+
+booksDiv.addEventListener('click',settingTheRequiredBook)
+
+

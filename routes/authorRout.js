@@ -29,7 +29,7 @@ router.get("/Author",(req,res)=>
     
     authorModel.find(  (err, allAuthors)=>{
         if(err) throw err ;
-        console.log(allAuthors)
+       
         res.send(allAuthors);
         })
 
@@ -42,14 +42,23 @@ router.get("/single/Author",(req,res)=>
 {
   
  res.sendFile(publicPath+"/authorProfile.html");
+
  
   
 })
 
-router.get("/:id",(req,res)=>
+router.get("/single/Author/:id",(req,res)=>
 {
-    console.log(req.params.id)
-   authorModel.findOne({_id:req.params.id})
+  
+ req.session.authorId=req.params.id
+ res.send("ok")
+  
+})
+
+router.get("/authorInfo",(req,res)=>
+{
+    
+   authorModel.findOne({_id:req.session.authorId})
     .then((data) =>
     { 
         res.send(data)
