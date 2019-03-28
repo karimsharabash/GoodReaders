@@ -102,10 +102,6 @@ function unhoverStars() {
     }
 }
 
-
-
-
-
 /* Reviews part */
 commentForm.addEventListener('submit', addComment)
 
@@ -129,9 +125,6 @@ function postReview(username , comment , time )
      time.toUTCString()+
     '</div>';
 }
-
-
-
 
 window.addEventListener('load', defineTheBook);
 
