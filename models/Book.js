@@ -13,7 +13,7 @@ const bookSchema = mongoose.Schema({
     },
     authorId:{
         type: mongoose.Schema.Types.ObjectId,
-        ref:"Authers",
+        ref:"Authors",
         required:true
     },
     avgRating:{type:Number,default:0},         

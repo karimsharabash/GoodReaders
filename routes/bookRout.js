@@ -60,9 +60,14 @@ router.get("/:id",(req,res)=>
 
 router.get("/define/Book",(req,res)=>
 {
-    bookModel.findOne({_id:req.session.requiredBook},(err, Book)=>{
-    if(err) return res.send(err) ;
-         console.log(req.session.requiredBook)
+    
+    //req.session.requiredBook
+     bookModel.findOne({_id:"5c8d72bb0806621ec3a77c2d"})
+    .populate("authorId",{ "first_name" : 1,"last_name" : 1, _id :0 })
+    .populate("categoryId","name")
+    .exec ((err, Book)=>{
+     if(err) return res.send(err) ;
+        //  console.log(req.session.requiredBook)
          console.log(Book)
         //res.set("content-type","application/json");
     	res.json(Book);

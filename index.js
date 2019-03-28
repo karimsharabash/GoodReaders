@@ -5,6 +5,7 @@ const categoryRout = require("./routes/categRout");
 const userRout = require("./routes/userRout");
 const bookRout = require("./routes/bookRout");
 const authorRout = require("./routes/authorRout");
+const reviewRout = require("./routes/reviewRout");
 const cors = require('cors');
 const path= require("path");
 const  cookieParser = require('cookie-parser');
@@ -77,6 +78,7 @@ app.use("/category", categoryRout);
 app.use("/user", userRout);
 app.use("/book",bookRout)
 app.use("/author", authorRout);
+app.use("/review",reviewRout)
 app.get('/home',(req,res)=>{
  
     res.sendFile(publicPath+"/home.html")

@@ -19,9 +19,7 @@ router.post("/", (req,res) =>
 
 router.get("/",(req,res)=>
 {
-   
     res.sendFile(publicPath+"/authors.html");
-
 })
 
 router.get("/Author",(req,res)=>
@@ -29,41 +27,27 @@ router.get("/Author",(req,res)=>
     
     authorModel.find(  (err, allAuthors)=>{
         if(err) throw err ;
-       
         res.send(allAuthors);
         })
-
 })
-
 //route add by rahma to get one author
-
-
 router.get("/single/Author",(req,res)=>
-{
-  
+{  
  res.sendFile(publicPath+"/authorProfile.html");
-
- 
-  
 })
 
 router.get("/single/Author/:id",(req,res)=>
 {
-  
  req.session.authorId=req.params.id
- res.send("ok")
-  
+ res.send("ok") 
 })
 
 router.get("/authorInfo",(req,res)=>
 {
-    
    authorModel.findOne({_id:req.session.authorId})
     .then((data) =>
     { 
         res.send(data)
-        
-
     })
 })
 

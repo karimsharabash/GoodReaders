@@ -1,7 +1,7 @@
 const stars = document.querySelectorAll('.star');
 const commentForm = document.getElementById('commentForm');
-const comment = document.getElementById('userReview').value;
-const reviewsZone = document.getElementById("allReviews");
+const comment = document.getElementById('userReview');
+const reviewsArea = document.getElementById("reviewsArea");
 const bookCoverImg = document.getElementById("bookCoverImg");
 const descArea = document.getElementById("descArea");
 const bookTitle = document.getElementById("bookTitle");
@@ -26,7 +26,7 @@ fetch("http://localhost:3000/user/nav/defineUser" ,
     {
        method:"GET",
        headers: {Accept: 'application/json'},
-    })
+    })  
     .then(function(res){ 
       return res.json();
     }).then(function(res){
@@ -107,28 +107,31 @@ function unhoverStars() {
 
 
 /* Reviews part */
-
 commentForm.addEventListener('submit', addComment)
 
-/* 
-Displaying & saving the comment or review added by the user with it's date.
-*/
 function addComment(e) {
-
+    e.preventDefault();
     var commentTime = new Date();
-
-    reviewsZone.innerHTML += '<div class="well">' +
-        '<h5>Muhammad Adel: ' + comment + '</h5>' +
-        '<br>' +
-        commentTime.toUTCString() +
-        '</div>';
+    console.log("comment")
+    console.log(comment.value)
+    postReview("Adel", comment.value , commentTime )
 
     commentForm.reset();
-    e.preventDefault();
+
+}
+
+// karim code 
+function postReview(username , comment , time )
+{
+    reviewsArea.innerHTML += '<div class="well">' +
+    '<h5> '+ username + ' :</h5> '+
+    "<p>" +comment + "</p>"+
+     time.toUTCString()+
+    '</div>';
 }
 
 
-// karim code 
+
 
 window.addEventListener('load', defineTheBook);
 
@@ -144,8 +147,7 @@ function defineTheBook() {
             return res.json();
            
         }).then(data => {
-            console.log("sads")
-            console.log(data);
+    
             currentBookId = data._id;
             bookCoverImg.src = "../../img/" + data.photoName;
             descArea.textContent = data.description;
@@ -154,7 +156,7 @@ function defineTheBook() {
             changeStars(averageRating);
             ratingsCount.textContent = data.ratingCount + " ";
             getBookAuthor(data.authorId);
-            getBookCategory(data.categoryId);
+            getBookCategory(data.categoryId.name);
         })
         .then ( () =>{
         fetch("http://localhost:3000/user/" + currentUserId + "/book/" + currentBookId,
@@ -182,7 +184,23 @@ function defineTheBook() {
                 }
             }
         })
+
+        fetch("http://localhost:3000/review/"+ currentBookId,
+        {
+            "method": "GET",
+            headers: { Accept: ['application/json', "text/plain"] },
+        }).then( res => res.json())
+        .then((reviews)=>
+        {   
+            console.log(reviews);
+            for (let review of reviews ) 
+            {
+                let reviewDate = new Date(review.time) //convet the mongoose date type to js date to use date functions 
+                postReview(review.userId.username , review.content ,reviewDate );
+            }
+        })
     })
+
 }
 
 function changeStars(rating) {
@@ -226,34 +244,14 @@ function updateRatingTextAndStars(avgRating) {
     changeStars(avgRating);
 }
 
-function getBookAuthor(authorID) {
+function getBookAuthor(author) {
 
-    fetch("http://localhost:3000/author/" + authorID,
-        {
-            method: "GET",
-            headers: { Accept: 'application/json' },
-        })
-        .then(function (res) {
+    authorName.textContent = author.first_name + " " + author.last_name;
 
-            return res.json();
-        }).then(data => {
-
-            authorName.textContent = data.first_name + " " + data.last_name;
-        })
 }
-function getBookCategory(categoryID) {
-    {
-        fetch("http://localhost:3000/category/" + categoryID,
-            {
-                method: "GET",
-                headers: { Accept: 'application/json' },
-            })
-            .then(function (res) {
-                return res.json();
-            }).then(data => {
-                categoryName.textContent = data.name;
-            })
-    }
+function getBookCategory(category) {
+                categoryName.textContent = category;
+    
 }
 
 function updateUpdateUserRating(newRating,newStatus) {
