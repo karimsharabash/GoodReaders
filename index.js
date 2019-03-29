@@ -11,6 +11,9 @@ const path= require("path");
 const  cookieParser = require('cookie-parser');
 const session = require('express-session');
 const publicPath = require("./public/Path");
+const MongoStore = require('connect-mongo')(session);
+
+
 mongoose.connect('mongodb://localhost:27017/bookDB', () => {
     console.log("connected to database");
 })
@@ -31,7 +34,6 @@ app.use(express.json({
   app.use(cookieParser());
 
  /*
-
  resave : Forces the session to be saved back to the session store, 
  even if the session was never modified during the request
  
@@ -43,10 +45,14 @@ app.use(express.json({
     secret: 'fight-club',
     resave: true,
     saveUninitialized: false,
-    cookie: {
-      // expires: 600000
-     maxAge: 1000 * 60 * 60 * 24  //month
-    }
+    // cookie: {
+    //   // expires: 600000
+    //  maxAge: 1000 * 60 * 60 * 24  //month
+    // },
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      ttl: 24 * 60 * 60 // Keeps session open for 1 day
+  })
 }));
 
 /* This middleware will check if user's cookie is 
@@ -71,7 +77,14 @@ let sessionChecker = function ( req, res, next) {
   }    
 };
 
-//app.use(sessionChecker());
+app.use(( req, res, next) =>
+{
+  if ( req.session.user  &&  req.cookies.user_sid ) {
+    res.redirect('home.html');
+} else {
+    next(); // should handle all the un logged users 
+} 
+});
 /*end of session code */ 
 app.use("/admin", adminRout);
 app.use("/category", categoryRout);
