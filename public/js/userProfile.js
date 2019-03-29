@@ -35,20 +35,9 @@ function displayUserBooks(userBooks,mode)
 
   userBooks.forEach(element => {
     if(element.status==mode||modeFlag=="all")
-  //   {
-  //   fetch('http://localhost:3000/book/'+element.book_id,
-  // {
-  //    method:"GET",
-  // })
-  // .then(function(res){ 
-  //  return res.json();
-  // }).then((res)=>{
-    
-    tableBody.innerHTML+='<tr><td><img width="50px; height="100px;" src="img/'+element.book_id.photoName+'"></td><td>'+element.book_id.name+'</td><td>'+element.rating+'</td></tr>'
-  // })
-  //   }
-
-  });
+   
+    tableBody.innerHTML+='<tr><td><a href="/book/singlebook"><img id="'+element.book_id._id+'" width="50px; height="100px;" src="img/'+element.book_id.photoName+'"></a></td><td>'+element.book_id.name+'</td><td>'+element.rating+'</td>'+gettingDropDown(element.status)+'</tr>'
+ });
  
 }
 
@@ -75,6 +64,42 @@ currntlyRead.addEventListener('click',()=>{
 
 
 wishToRead.addEventListener('click',()=>{
-  wishToRead="wantToRead"
+  modeFlag="wantToRead"
   displayUserBooks(userBooks,modeFlag)
 })
+
+function gettingDropDown(status)
+{
+   let selectMenu;
+   switch (status)
+   {
+   case "read":
+   selectMenu='<td><select id="bookStatusMenu" class="form-control" style="width:250px"><option value="reading">Currently reading</option><option value="wantToRead" >Want to read</option><option selected="selected" value="read" >Read</option></select></td>'
+   break;
+   case "reading":
+   selectMenu='<td><select id="bookStatusMenu" class="form-control" style="width:250px"><option selected="selected" value="reading">Currently reading</option><option value="wantToRead" >Want to read</option><option  value="read" >Read</option></select></td>'
+   break;
+   case "wantToRead":
+   selectMenu='<td><select id="bookStatusMenu" class="form-control" style="width:250px"><option  value="reading">Currently reading</option><option selected="selected" value="wantToRead" >Want to read</option><option  value="read" >Read</option></select></td>'
+   break;
+   } 
+   return selectMenu;
+}
+
+
+function settingTheRequiredBook(event)
+{
+  
+  fetch('http://localhost:3000/book/settingTheRequiredBook/'+event.target.id,
+    {
+       method:"GET",
+       headers: {Accept: 'application/json'},
+    })
+    .then(function(res){ 
+      
+})
+
+}
+
+
+tableBody.addEventListener('click',settingTheRequiredBook)

@@ -141,7 +141,7 @@ function defineTheBook() {
         }).then(data => {
     
             currentBookId = data._id;
-            bookCoverImg.src = "../../img/" + data.photoName;
+            bookCoverImg.src = "img/" + data.photoName;
             descArea.textContent = data.description;
             bookTitle.textContent = data.name;
             averageRating = parseInt(data.avgRating);

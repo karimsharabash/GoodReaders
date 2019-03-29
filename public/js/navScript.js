@@ -1,4 +1,7 @@
 const userImg=document.getElementById("userImg");
+const NavForVisitor=document.getElementById("NavForVisitor");
+const NavForUser=document.getElementById("NavForUser");
+const userProfBtn=document.getElementById("userProfBtn");
 let   currentUserId;
 let currentUserName;
 
@@ -13,11 +16,20 @@ fetch("http://localhost:3000/user/nav/defineUser" ,
     .then(function(res){ 
       return res.json();
     }).then ( data => {
-        console.log(data.imageName);
-        // userImg.src ="img/"+data.imageName;
+       if(data.res=="no user found")
+       {
+        NavForVisitor.style.display="block"
+        NavForUser.style.display="none"
+       }
+       else
+       {
+        NavForVisitor.style.display="none"
+        NavForUser.style.display="block"
+        userImg.src ="img/"+data.imageName;
         currentUserId=data._id
         currentUserName  = data.username;
+       
+       }
 })   
 }
-
 

@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Profile</title>
+   <base href="/">
   <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
   <meta name="keywords"
     content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
@@ -30,7 +31,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">Good<span>Readers</span></a>
+          <a class="navbar-brand" href="home">Good<span>Readers</span></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
@@ -45,24 +46,32 @@
             <li><a href="book">Books</a></li>
             <li><a href="author">Authors</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right" id="iconlist">
-						<li><img id="userImg" src="img/mentor.jpg" >
-							 <ul id="logoutList" >
-									<li>
-										 <input id="logoutBtn" type="submit" value="log out"  >
-									</li>
-							 </ul>
-						 </li>
-				</ul>
+           <div id="NavForVisitor">
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="#" data-target="#login" data-toggle="modal"><span class="fa fa-sign-in" style="color:#5FCF80"></span> Login</a></li>
+			<li><a href="home.html#signupSection" onloadeddata="document.title = 'Home'" id="signupBtn"><span class="fa fa-user" style="color:#5FCF80"></span> Sign Up</a></li>
+		</ul> 
+		</div>
+		<div id="NavForUser">
+	<ul class="nav navbar-nav navbar-right" id="iconlist">
+	<li><a id="AForP" href="user/current/User"><img id="userImg" src=""></a>
+		<ul id="logoutList" >
+		<li>
+		<input id="logoutBtn" type="submit" value="log out"  >
+		</li>
+		</ul>
+		</li>
+		</ul>
+		</div>
         </div>
       </div>
     </nav>
     <div class="sidenav">
             <h5>My books</h5>
-            <a id="allBooks"href="#">All</a>
-            <a id="readBook"href="#">Read</a>
-            <a id="currntlyRead"href="#">Currntly Reading</a>
-            <a id="wishToRead"href="#">Want To read</a>
+            <a id="allBooks">All</a>
+            <a id="readBook">Read</a>
+            <a id="currntlyRead">Currntly Reading</a>
+            <a id="wishToRead">Want To read</a>
           </div>
     <div class="container marginToTheTop">
     <table  id="myTable"class="table display">

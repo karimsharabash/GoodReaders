@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/:id" , (req,res)=>
 {
-    console.log('hey')
+    
     const bookID = req.params.id;
     reviewModel.find( {bookId :  bookID} )
     .populate('userId' , "username")

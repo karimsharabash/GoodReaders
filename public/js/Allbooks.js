@@ -14,7 +14,7 @@ async function CategoryName(id,book)
       return res.json();
     }).then ( (data) => {
       categoryName = data.name;
-      console.log(categoryName);
+     
     })
     
     booksDiv.innerHTML+= `
@@ -43,7 +43,7 @@ fetch('http://localhost:3000/book/books',
 }).then ( 
   data => {
    
-    console.log(data);
+    
     showingBooks(data);
 })
 
@@ -63,11 +63,11 @@ async function gettingBooks(data)
       return res.json();
     }).then ( (data1) => {
       name = data1.name;
-      console.log(name);
+     
     })
     
     book[index] = data;
-    console.log(index);
+    
         
   })
 }
@@ -77,8 +77,7 @@ function showingBooks(data)
 {
   data.map( async (book) => {
   await CategoryName(book.categoryId, book);
-  console.log(book.categoryId)
-  console.log(book)
+  
   })
 }
 

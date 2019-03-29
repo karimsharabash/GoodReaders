@@ -18,7 +18,7 @@ router.get("/books",(req,res)=>
 {
     bookModel.find({},(err, books)=>{
     if(err) return res.send(err) ;
-        //res.set("content-type","application/json");
+        res.set("content-type","application/json");
         res.send(books);
         
     })
@@ -40,9 +40,8 @@ router.get("/singlebook",(req,res)=>
 
 router.get("/settingTheRequiredBook/:id",(req,res)=>
 {       
+    console.log(req.params.id)
     req.session.requiredBook=req.params.id
-    console.log(req.session.requiredBook)
-    console.log("zzzzzzzzzzzzzzzzz")
     res.send('ok') 
 })
 
@@ -52,14 +51,15 @@ router.get("/:id",(req,res)=>
     if(err) return res.send(err) ;
 
          console.log(Book)
-       
-    	res.json(Book);
+         res.set("content-type","application/json");
+    	res.send(Book);
     })
 })
 
 
 router.get("/define/Book",(req,res)=>
-{
+{    
+   
     
     //
     //"5c8d72bb0806621ec3a77c2d"
@@ -68,21 +68,19 @@ router.get("/define/Book",(req,res)=>
     .populate("categoryId","name")
     .exec ((err, Book)=>{
      if(err) return res.send(err) ;
-        //  console.log(req.session.requiredBook)
-         console.log(Book)
-        //res.set("content-type","application/json");
-    	res.json(Book);
+       res.set("content-type","application/json");
+       res.send(Book);
     })
 })
 
 
 //route add by rahma to get all books of a certain author ;
 router.get("/author/info",(req,res)=>{
-    console.log("test")
-    console.log(req.session.authorId)
    bookModel.find({authorId:req.session.authorId},(err,authorBooks)=>{
     if(err) return res.send(err) ;
-    res.json(authorBooks);
+    
+    res.set("content-type","application/json");
+    res.send(authorBooks);
     //    res.send(res);
    })
 })

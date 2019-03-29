@@ -11,6 +11,15 @@
     top:5px; */
 }
 
+/* #userProfBtn{
+
+    margin-top:5px;
+    margin-left: 20px; 
+    height: 50px;
+    width: 50px;
+   border-radius: 25px;
+} */
+
 #userImg{
     margin-top:5px;
     margin-left: 20px; 
@@ -21,7 +30,10 @@
     border:2px solid #C1E3D2;
     
 } 
-
+#AForP{
+margin: 0px;
+padding: 0px;
+}
 #logoutList{
     list-style: none;
 

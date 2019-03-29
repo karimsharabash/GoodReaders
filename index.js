@@ -12,8 +12,6 @@ const  cookieParser = require('cookie-parser');
 const session = require('express-session');
 const publicPath = require("./public/Path");
 const MongoStore = require('connect-mongo')(session);
-
-
 mongoose.connect('mongodb://localhost:27017/bookDB', () => {
     console.log("connected to database");
 })
@@ -34,13 +32,14 @@ app.use(express.json({
   app.use(cookieParser());
 
  /*
+
  resave : Forces the session to be saved back to the session store, 
  even if the session was never modified during the request
  
  cookie :The default value is { path: '/', httpOnly: true,
   secure: false, maxAge: null }.
  */
-  app.use(session({
+app.use(session({
     key: 'user_sID',
     secret: 'fight-club',
     resave: true,
@@ -77,14 +76,7 @@ let sessionChecker = function ( req, res, next) {
   }    
 };
 
-app.use(( req, res, next) =>
-{
-  if ( req.session.user  &&  req.cookies.user_sid ) {
-    res.redirect('home.html');
-} else {
-    next(); // should handle all the un logged users 
-} 
-});
+//app.use(sessionChecker());
 /*end of session code */ 
 app.use("/admin", adminRout);
 app.use("/category", categoryRout);
@@ -93,7 +85,9 @@ app.use("/book",bookRout)
 app.use("/author", authorRout);
 app.use("/review",reviewRout)
 app.get('/home',(req,res)=>{
- 
+    if(req.session.user==undefined)
     res.sendFile(publicPath+"/home.html")
+    else
+    res.sendFile(publicPath+"/userProfile.html");
 })
 app.listen(3000);
