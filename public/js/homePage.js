@@ -74,9 +74,16 @@ uploadBtn.addEventListener("click" , (event)=>
     .then( response => {
         if(response == "done")
         {
-            uploadBtn.style.backgroundColor="green";
-            uploadBtn.style.color="black";
+            uploadBtn.style.width="20%";
+            uploadBtn.value="Uploaded";
+            uploadBtn.style.backgroundColor="mediumseagreen";
+            uploadBtn.style.color="honeydew";
+            uploadBtn.style.borderColor="mediumseagreen";
+            uploadBtn.style.borderRadius="9px";
+            uploadBtn.style.outline="none";
         } else {
+            uploadBtn.style.width="25%";
+            uploadBtn.value="Upload failed";
             uploadBtn.style.backgroundColor="red";
             uploadBtn.style.color="black";
         }
