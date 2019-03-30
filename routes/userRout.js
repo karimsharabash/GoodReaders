@@ -34,7 +34,6 @@ router.post("/login", (req, res) => {
           console.log(result);
           if (result) {
             if (!userData.remember){
-              console.log("don't save")
               req.session.cookie.expires = false;
           }
           else {
@@ -52,15 +51,16 @@ router.post("/login", (req, res) => {
   })
 })
 
-// new route for getting htmlpage of User
-
-router.get("/current/User",(req,res)=>
+router.get("/logout", (req,res) =>
 {
-  
-    res.sendFile(publicPath+"/userProfile.html");
-    
+  req.session.destroy();
 })
 
+// new route for getting htmlpage of User
+router.get("/current/User",(req,res)=>
+{
+    res.sendFile(publicPath+"/userProfile.html");    
+})
 
 //route for the navbar
 router.get("/nav/defineUser", (req, res) => {
@@ -101,7 +101,7 @@ router.post("/signup", (req, res) => {
         .then(() => {
 
           req.session.user = newUser;
-         
+          req.session.cookie.expires = false; //make it one time session
           res.send("userProfile.html");
         })
     })
@@ -158,9 +158,10 @@ router.get("/:userId/book/:bookId" ,(req,res) =>
   
   const idToUpdate = req.params.userId;
   const bookId = req.params.bookId;
-  
+    console.log ("book id "+ bookId +"  userid "+idToUpdate)
   userModel.findOne({ _id: idToUpdate , "books.book_id" : bookId }, { "_id" : 1, "books" : 1,"username":1} ,(err, user) => {
-       if(user)  // if user is found then there is a relation between this user and this book 
+    console.log(user);  
+    if(user)  // if user is found then there is a relation between this user and this book 
        {
         const currentBook = user.books.find(function(element) { 
         return element.book_id==bookId; 
@@ -170,7 +171,7 @@ router.get("/:userId/book/:bookId" ,(req,res) =>
     } 
     else 
     {
-      console.log("not found");
+      console.log("not found relation");
       res.json("not found");
     }
   }) 

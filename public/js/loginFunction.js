@@ -47,3 +47,4 @@ function loginCheck(username, password, rememberFlag) {
             }
         })
 }
+

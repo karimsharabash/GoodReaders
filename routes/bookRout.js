@@ -75,9 +75,7 @@ router.get("/:id",(req,res)=>
 
 router.get("/define/Book",(req,res)=>
 {    
-   
-    
-    //
+
     //"5c8d72bb0806621ec3a77c2d"
      bookModel.findOne({_id:req.session.requiredBook})
     .populate("authorId",{ "first_name" : 1,"last_name" : 1, _id :0 })

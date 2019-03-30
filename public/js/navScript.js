@@ -2,6 +2,7 @@ const userImg=document.getElementById("userImg");
 const NavForVisitor=document.getElementById("NavForVisitor");
 const NavForUser=document.getElementById("NavForUser");
 const userProfBtn=document.getElementById("userProfBtn");
+const logoutBtn =document.getElementById("logoutBtn");
 let   currentUserId;
 let currentUserName;
 
@@ -33,3 +34,20 @@ fetch("http://localhost:3000/user/nav/defineUser" ,
 })   
 }
 
+
+logoutBtn.addEventListener("click" , logOut)
+
+ function logOut()
+{
+   fetch("http://localhost:3000/user/logout",
+   {
+      "method":"GET"
+   })
+   .then( ()=>
+   {
+     
+      console.log("session ended")
+   })
+   NavForVisitor.style.display="block"
+   NavForUser.style.display="none"
+}
