@@ -22,18 +22,19 @@ categoriesMenu.addEventListener("click" , function (){
             listGoup.setAttribute("class","col-md-3"); 
             element_number_in_the_group = 0;             
           
-          paragraphElement = document.createElement("p");
-           anchorElement = document.createElement("a");        
-           anchorElement.href="../adminLoginPage.html";
-           anchorElement.innerHTML=category.name;   // change to name 
-            console.log(anchorElement)
-           paragraphElement.appendChild(anchorElement);
-           listGoup.appendChild(paragraphElement);
-           listGoup.innerHTML +='<p role="separator" class="divider"></p>'; 
-           document.getElementById('categories').appendChild(listGoup);
-          });
-          console.log(document.getElementById('categories'))
-           console.log(listGoup)     
+            paragraphElement = document.createElement("p");
+            anchorElement = document.createElement("a");        
+            anchorElement.href="book/category/"+category._id;
+            anchorElement.id = category._id;
+            anchorElement.innerHTML=category.name;   // change to name 
+             console.log(anchorElement)
+            paragraphElement.appendChild(anchorElement);
+            listGoup.appendChild(paragraphElement);
+            listGoup.innerHTML +='<p role="separator" class="divider"></p>'; 
+            document.getElementById('categories').appendChild(listGoup);
+           });
+           console.log(document.getElementById('categories'))
+            console.log(listGoup)      
          
        }) 
     .catch(err=>console.log(err))        

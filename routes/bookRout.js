@@ -21,19 +21,56 @@ router.get("/books",(req,res)=>
     })
 })
 
-//Added by Muhammad
+
+
+
+router.get("/allBooks",(req,res)=>
+{
+    bookModel.find()
+    .populate('categoryId', 'name')
+    .sort()
+    .exec((err, books)=>{
+        if(err) return res.send(err) ;
+            res.set("content-type","application/json");
+            res.send(books);
+        })
+})
+
+//Added by Muhammad to get the most popular books.
 router.get("/popularBooks",(req,res)=>
 {
     bookModel.find()
     .populate('categoryId', 'name')
     .sort({ avgRating: -1 })
-    .limit(8)
+    .limit(18)
     .exec( (err,books) => {
         if(err) return res.send("Failed to get the popular books.");
         console.log(books);
         res.send(books);
     })
 })
+
+
+/*Added by Muhammad, this is a route to redirect to books for a certain category page & saving
+  the category ID in the session.*/
+router.get("/category/:id", (req,res)=> {
+    req.session.category = req.params.id;
+    res.sendFile(publicPath + '/booksForEachCategory.html')
+})
+
+/*This is used by the js to get the category books to be able to display it.*/
+router.get("/categoryBooks",(req,res)=>{
+    bookModel.find({categoryId:req.session.category})
+    .populate('categoryId', 'name')
+    .sort({avgRating: -1})
+    .exec((err,books) => {
+        if(err) return res.send("Failed to get the category books.");
+        console.log(books);
+        res.set("content-type","application/json");
+        res.send(books);
+    })
+ })
+
 
 router.get("/",(req,res)=>
 {    
