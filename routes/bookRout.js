@@ -24,6 +24,22 @@ router.get("/books",(req,res)=>
     })
 })
 
+
+
+//Added by Muhammad
+router.get("/popularBooks",(req,res)=>
+{
+    bookModel.find()
+    .populate('categoryId', 'name')
+    .sort({ avgRating: -1 })
+    .limit(8)
+    .exec( (err,books) => {
+        if(err) return res.send("Failed to get the popular books.");
+        console.log(books);
+        res.send(books);
+    })
+})
+
 router.get("/",(req,res)=>
 {    
    

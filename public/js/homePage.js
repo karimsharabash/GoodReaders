@@ -19,7 +19,25 @@ const loginNameErrMsg = document.getElementById("loginNameErrMsg");
 const loginPassErrMsg = document.getElementById("loginPassErrMsg");
 const uploadBtn = document.getElementById("uploadBtn");
 const photoForm = document.getElementById("photoForm");
+const popularBooks = document.getElementById("HomePopularBooks");
 let usernameFlag = null;
+
+
+//Added by Muhammad to display the most popular books according to their average ratings.
+window.addEventListener("load", () => {
+    fetch("http://localhost:3000/book/popularBooks",
+    {
+        method:"GET",
+        headers: {Accept: 'application/json'},
+    })
+    .then( res => {
+        return res.json();
+    })
+    .then( books => {
+        displayPopularBooks(books);
+    })
+})
+
 
 uploadBtn.addEventListener("click" , (event)=>
 {
@@ -65,6 +83,23 @@ signupSubmit.addEventListener("click", (event) => {
     signup(imgName);
 
 })
+
+
+function displayPopularBooks(allBooks)
+{
+    allBooks.forEach(book => {
+        popularBooks.innerHTML += `
+        <div class= "col-lg-2 col-md-4 col-sm-6 col-xs-12">
+        <a href="/book/singlebook"><img id="${book._id}" class="bookImg" src="img/${book.photoName}" </a>
+        <div class="card-body">
+        <h4>${book.avgRating} <span class="bookRating fa fa-star"></span><br><a > ${book.name}</a> </h4>
+        <h4> Category: ${book.categoryId.name}</h4> 
+        </div>
+        </div>
+        `
+    });
+}
+
 
 function loginCheck(username, password, rememberFlag) {
     let user = {
