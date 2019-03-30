@@ -22,12 +22,8 @@ function getCurrentUser()
       currentUserId=data._id;
       userBooks=data.books
       displayUserBooks(userBooks)
-
     })   
 }
-
-
-
 
 function displayUserBooks(userBooks,mode)
 {
@@ -40,9 +36,6 @@ function displayUserBooks(userBooks,mode)
  });
  
 }
-
-
-
 
 window.addEventListener('load',getCurrentUser)
 
@@ -60,8 +53,6 @@ currntlyRead.addEventListener('click',()=>{
   modeFlag="reading"
   displayUserBooks(userBooks,modeFlag)
 })
-
-
 
 wishToRead.addEventListener('click',()=>{
   modeFlag="wantToRead"
@@ -86,7 +77,6 @@ function gettingDropDown(status)
    return selectMenu;
 }
 
-
 function settingTheRequiredBook(event)
 {
   
@@ -95,11 +85,23 @@ function settingTheRequiredBook(event)
        method:"GET",
        headers: {Accept: 'application/json'},
     })
-    .then(function(res){ 
-      
+    .then(function(res){     
 })
 
 }
 
-
 tableBody.addEventListener('click',settingTheRequiredBook)
+
+function updateBookStatus(bookId,newStatus)
+{ 
+    fetch("http://localhost:3000/user/" + currentUserId + "/book/" + bookId,
+        {
+            "method": "PUT",
+            body: JSON.stringify({status : newStatus})
+        })
+        .then((res) => {
+          return  res.text();
+        }).then((data) => {
+            console.log(data);
+        })
+}

@@ -28,7 +28,6 @@ app.use(express.json({
 
   /*code added by karim for session */
 
-
   app.use(cookieParser());
 
  /*
@@ -61,20 +60,13 @@ still saved in browser and user is not set,
   server after login,your cookie still remains
    saved in the browser.
 */
-app.use((req, res, next) => {
-  if (req.cookies.user_sid && !req.session.user) {
-      res.clearCookie('user_sID');        
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   if (req.cookies.user_sid && !req.session.user) {
+//       res.clearCookie('user_sID');        
+//   }
+//   next();
+// });
 
-let sessionChecker = function ( req, res, next) {
-  if ( req.session.user  &&  req.cookies.user_sid ) {
-      res.redirect('home.html');
-  } else {
-      next(); // should handle all the un logged users 
-  }    
-};
 
 //app.use(sessionChecker());
 /*end of session code */ 

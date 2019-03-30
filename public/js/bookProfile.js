@@ -38,6 +38,7 @@ This function sets the rating specified by the user through clicking on a star, 
 & also 
 */
 function setRating() {
+    if(currentUserId){
     let selectedStar = this;
     let match = false;
     clicked = true;
@@ -54,6 +55,17 @@ function setRating() {
     });
 
     updateOldRating(currentUserRating);
+}
+else{
+    fetch("http://localhost:3000/home",
+    {
+        "method": "GET",
+        "redirect" :"follow"
+        // body: JSON.stringify(newBook)
+    })
+
+    console.log("not allowed")
+}
 }
 
 
@@ -93,11 +105,22 @@ function unhoverStars() {
 commentForm.addEventListener('submit', addComment)
 
 function addComment(e) {
+    if(currentUserId){
     e.preventDefault();
     var commentTime = new Date();
     postReview(currentUserName, comment.value , commentTime )
     sendReviewToServer(comment.value );
     commentForm.reset();
+    }
+    else{
+        console.log("comment not allowed")
+
+        fetch("http://localhost:3000/home",
+        {
+            "method": "GET"
+            // body: JSON.stringify(newBook)
+        })
+    }
 
 }
 
@@ -128,7 +151,7 @@ function sendReviewToServer(comment )
 window.addEventListener('load', defineTheBook);
 
 function defineTheBook() {
-
+    let sessionDefined = false;
     fetch("http://localhost:3000/book/define/Book",
     {
             method: "GET",
@@ -139,7 +162,10 @@ function defineTheBook() {
             return res.json();
            
         }).then(data => {
-    
+     
+            if( data.authorId )
+            {
+              
             currentBookId = data._id;
             bookCoverImg.src = "img/" + data.photoName;
             descArea.textContent = data.description;
@@ -149,8 +175,11 @@ function defineTheBook() {
             ratingsCount.textContent = data.ratingCount + " ";
             getBookAuthor(data.authorId);
             getBookCategory(data.categoryId.name);
+            sessionDefined=true;
+            }
         })
         .then ( () =>{
+            if(sessionDefined){
         fetch("http://localhost:3000/user/" + currentUserId + "/book/" + currentBookId,
         {
             "method": "GET",
@@ -191,7 +220,9 @@ function defineTheBook() {
                 postReview(review.userId.username , review.content ,reviewDate );
             }
         })
+    }
     })
+
 
 }
 
@@ -295,6 +326,7 @@ function sendUpdatedData(updatedBook) {
 
 function sendNewData(newBook)
 {
+    if(currentUserId){
     fetch("http://localhost:3000/user/" + currentUserId + "/book/",
         {
             "method": "POST",
@@ -303,6 +335,14 @@ function sendNewData(newBook)
         .then((res) => res.text()).then((data) => {
             console.log(data);
         })
+    }else{
+        fetch("http://localhost:3000/home",
+        {
+            "method": "GET"
+            // body: JSON.stringify(newBook)
+        })
+    }
+    
 }
 
 function updateBookData(newBookData)

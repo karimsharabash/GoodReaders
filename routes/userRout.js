@@ -118,9 +118,6 @@ router.post("/image", upload.single('photo'), (req, res) => {
 
 })
 
-
-
-
 router.get("/", (req, res) => {
   userModel.find((err, allUser) => {
     if (err) throw err;
@@ -129,10 +126,10 @@ router.get("/", (req, res) => {
 })
 
 
-router.delete("/", (req, res) => {
-  //  let idToDelete = req.params.id;
+router.delete("/:id", (req, res) => {
+   let idToDelete = req.params.id;
 
-  userModel.deleteMany()
+  userModel.deleteOne({_id:idToDelete})
     .then(() => {
       res.send("all users  deleted");
     })
@@ -150,7 +147,6 @@ router.post("/:id/book", (req, res) => {
     res.send("done");
   })
 })
-
 
 //check if this book already exist in this user bookList
 router.get("/:userId/book/:bookId" ,(req,res) =>

@@ -29,4 +29,13 @@ router.post("/" , (req, res)=>
 
 })
 
+router.delete("/:id",(req,res)=>
+{
+  const reviewId = req.params.id;
+  reviewModel.deleteOne({_id:reviewId} , (err,data)=>{
+      console.log("done");
+      res.send("done");
+  })
+})
+
 module.exports = router;

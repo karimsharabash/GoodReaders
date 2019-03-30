@@ -5,11 +5,9 @@ const publicPath = require("../public/Path");
 router.post("/", (req,res) =>
 {
   let newBook=req.body;
-  const book = new bookModel(newBook);
-  
+  const book = new bookModel(newBook);  
   book.save()
-  .then( () =>
-  {
+  .then( () =>{
    res.send(book);
   })
 })
@@ -20,11 +18,8 @@ router.get("/books",(req,res)=>
     if(err) return res.send(err) ;
         res.set("content-type","application/json");
         res.send(books);
-        
     })
 })
-
-
 
 //Added by Muhammad
 router.get("/popularBooks",(req,res)=>
@@ -42,17 +37,13 @@ router.get("/popularBooks",(req,res)=>
 
 router.get("/",(req,res)=>
 {    
-   
     res.sendFile(publicPath+'/Allbooks.html') 
-    
-    
 })
 
 router.get("/singlebook",(req,res)=>
 {       
         res.sendFile(publicPath+'/bookProfile.html') 
 })
-
 
 router.get("/settingTheRequiredBook/:id",(req,res)=>
 {       
@@ -72,19 +63,25 @@ router.get("/:id",(req,res)=>
     })
 })
 
-
 router.get("/define/Book",(req,res)=>
-{    
-
+{       
+    if(req.session.requiredBook )
+    {
     //"5c8d72bb0806621ec3a77c2d"
+    console.log(req.session)
      bookModel.findOne({_id:req.session.requiredBook})
     .populate("authorId",{ "first_name" : 1,"last_name" : 1, _id :0 })
     .populate("categoryId","name")
     .exec ((err, Book)=>{
      if(err) return res.send(err) ;
+    console.log("book in server")
+    //  console.log(Book);
        res.set("content-type","application/json");
        res.send(Book);
     })
+    }else{
+        res.redirect("/home");
+    }
 })
 
 
