@@ -20,6 +20,8 @@ const loginPassErrMsg = document.getElementById("loginPassErrMsg");
 const uploadBtn = document.getElementById("uploadBtn");
 const photoForm = document.getElementById("photoForm");
 const popularBooks = document.getElementById("HomePopularBooks");
+const morePopularBooks = document.getElementById("moreBooks");
+const more_less_btn = document.getElementById("show-more-or-less-btn");
 let usernameFlag = null;
 
 
@@ -36,6 +38,22 @@ window.addEventListener("load", () => {
     .then( books => {
         displayPopularBooks(books);
     })
+})
+
+
+more_less_btn.addEventListener("click", () =>{
+    if(morePopularBooks.style.display != 'inline')
+    {
+        morePopularBooks.style.display = "inline";
+        more_less_btn.innerHTML = "Show less";
+        console.log("hello");
+    }
+    else
+    {
+        morePopularBooks.style.display = "none";
+        more_less_btn.innerHTML = "Show more";
+        console.log("hello");
+    }
 })
 
 
@@ -87,8 +105,13 @@ signupSubmit.addEventListener("click", (event) => {
 
 function displayPopularBooks(allBooks)
 {
-    allBooks.forEach(book => {
-        popularBooks.innerHTML += `
+    let selectedDiv;
+    allBooks.forEach((book, index) => {
+        if(index < 6)
+            selectedDiv = popularBooks;
+        else selectedDiv = morePopularBooks;
+
+        selectedDiv.innerHTML += `
         <div class= "col-lg-2 col-md-4 col-sm-6 col-xs-12">
         <a href="/book/singlebook"><img id="${book._id}" class="bookImg" src="img/${book.photoName}" </a>
         <div class="card-body">

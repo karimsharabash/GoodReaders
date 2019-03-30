@@ -6,3 +6,59 @@
     width: 160px;
     height: 250px;
 }
+
+#sign-up-form{
+    margin: 10%;
+}
+
+#sign-up-div{
+    background-color: #dadadaa6;
+    display: inline-block;
+    width: 55%;
+    border-radius: 12px;
+}
+
+
+#uploadBtn{
+    position: absolute;;
+    margin-top: -6%;
+    margin-left: 27%;
+    border-radius: 9px;
+    outline: none;
+    width: 20%;
+}
+
+#signupSubmit{
+    border-radius: 9px;
+    width: 30%;
+    color: honeydew;
+    background-color: mediumseagreen;
+    outline: none;
+}
+
+#signupSubmit:hover{
+    background-color: springgreen;
+    outline: none;
+}
+
+.form-control{
+    font-family: fantasy;
+    font-size: 17px
+}
+
+#moreBooks{
+    display: none;
+}
+
+#show-more-or-less-btn{
+    border-radius: 9px;
+    width: 10%;
+    color: honeydew;
+    background-color: mediumseagreen;
+    outline: none;
+}
+
+#show-more-or-less-btn:hover{
+    background-color: springgreen;
+    outline: none;
+}
