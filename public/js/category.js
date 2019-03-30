@@ -19,7 +19,7 @@ categoriesMenu.addEventListener("click" , function (){
   
                        //for th new group 
             listGoup= document.createElement("div");
-            listGoup.setAttribute("class","col-md-3"); 
+            listGoup.setAttribute("class","col-md-3 cat-option"); 
             element_number_in_the_group = 0;             
           
             paragraphElement = document.createElement("p");
