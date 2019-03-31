@@ -255,6 +255,7 @@ function updateOldRating(newRating) {
         abilityToAddRating = false;
         averageRating += (newRating / newRatingCount);
         averageRating = averageRating.toPrecision(2);
+        if(averageRating >5 ) averageRating =5;
         updateRatingTextAndStars(averageRating);
         ratingsCount.textContent = newRatingCount + " ";
         updateBookData({avgRating : averageRating , ratingCount : newRatingCount});
