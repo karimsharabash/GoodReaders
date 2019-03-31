@@ -1,7 +1,7 @@
 const loginBtn = document.getElementById("loginBtn");
 const loginUsername = document.getElementById("loginUsernameTxt");
 const loginPassword = document.getElementById("loginPasswordTxt");
-const loginRememberMe= document.getElementById("loginRememberMe");
+const loginRememberMe = document.getElementById("loginRememberMe");
 const profilPic = document.getElementById("profilePic");
 const signupName = document.getElementById("signupName");
 const signupUsername = document.getElementById("signupUsername");
@@ -28,28 +28,26 @@ let usernameFlag = null;
 //Added by Muhammad to display the most popular books according to their average ratings.
 window.addEventListener("load", () => {
     fetch("http://localhost:3000/book/popularBooks",
-    {
-        method:"GET",
-        headers: {Accept: 'application/json'},
-    })
-    .then( res => {
-        return res.json();
-    })
-    .then( books => {
-        displayPopularBooks(books);
-    })
+        {
+            method: "GET",
+            headers: { Accept: 'application/json' },
+        })
+        .then(res => {
+            return res.json();
+        })
+        .then(books => {
+            displayPopularBooks(books);
+        })
 })
 
 
-more_less_btn.addEventListener("click", () =>{
-    if(morePopularBooks.style.display != 'inline')
-    {
+more_less_btn.addEventListener("click", () => {
+    if (morePopularBooks.style.display != 'inline') {
         morePopularBooks.style.display = "inline";
         more_less_btn.innerHTML = "Show less";
         console.log("hello");
     }
-    else
-    {
+    else {
         morePopularBooks.style.display = "none";
         more_less_btn.innerHTML = "Show more";
         console.log("hello");
@@ -57,37 +55,35 @@ more_less_btn.addEventListener("click", () =>{
 })
 
 
-uploadBtn.addEventListener("click" , (event)=>
-{
-  event.preventDefault();
-  let imgPathArr = profilPic.value.split("\\");
-  let imgName = imgPathArr[imgPathArr.length - 1];
+uploadBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    let imgPathArr = profilPic.value.split("\\");
+    let imgName = imgPathArr[imgPathArr.length - 1];
 
-  let formData = new FormData();
-  formData.append('photo', profilPic.files[0] ,imgName);
-    
+    let formData = new FormData();
+    formData.append('photo', profilPic.files[0], imgName);
+
     fetch("http://localhost:3000/user/image",
-    {
-        method: 'POST',
-        body:formData
-    }).then (res =>res.text() )
-    .then( response => {
-        if(response == "done")
         {
-            uploadBtn.style.width="20%";
-            uploadBtn.value="Uploaded";
-            uploadBtn.style.backgroundColor="mediumseagreen";
-            uploadBtn.style.color="honeydew";
-            uploadBtn.style.borderColor="mediumseagreen";
-            uploadBtn.style.borderRadius="9px";
-            uploadBtn.style.outline="none";
-        } else {
-            uploadBtn.style.width="25%";
-            uploadBtn.value="Upload failed";
-            uploadBtn.style.backgroundColor="red";
-            uploadBtn.style.color="black";
-        }
-    })
+            method: 'POST',
+            body: formData
+        }).then(res => res.text())
+        .then(response => {
+            if (response == "done") {
+                uploadBtn.style.width = "20%";
+                uploadBtn.value = "Uploaded";
+                uploadBtn.style.backgroundColor = "mediumseagreen";
+                uploadBtn.style.color = "honeydew";
+                uploadBtn.style.borderColor = "mediumseagreen";
+                uploadBtn.style.borderRadius = "9px";
+                uploadBtn.style.outline = "none";
+            } else {
+                uploadBtn.style.width = "25%";
+                uploadBtn.value = "Upload failed";
+                uploadBtn.style.backgroundColor = "red";
+                uploadBtn.style.color = "black";
+            }
+        })
 })
 
 loginBtn.addEventListener("click", () => {
@@ -110,11 +106,10 @@ signupSubmit.addEventListener("click", (event) => {
 })
 
 
-function displayPopularBooks(allBooks)
-{
+function displayPopularBooks(allBooks) {
     let selectedDiv;
     allBooks.forEach((book, index) => {
-        if(index < 6)
+        if (index < 6)
             selectedDiv = popularBooks;
         else selectedDiv = morePopularBooks;
 
@@ -151,17 +146,15 @@ function loginCheck(username, password, rememberFlag) {
             return res.text();
         }).then(data => {
             console.log(data);
-            if(data=="invalid")
-            {
-              loginNameErrMsg.style.display = "block";
-              loginPassErrMsg.style.display = "none";
-            }else if( data == "wrongPassword")
-            {
+            if (data == "invalid") {
+                loginNameErrMsg.style.display = "block";
+                loginPassErrMsg.style.display = "none";
+            } else if (data == "wrongPassword") {
                 loginNameErrMsg.style.display = "none";
                 loginPassErrMsg.style.display = "block";
             } else {
-               
-                window.location =data;
+
+                window.location = data;
             }
         })
 }
@@ -170,18 +163,17 @@ function loginCheck(username, password, rememberFlag) {
 function signup(imgName) {
     //checks =>> username must be unique , no empty field ,same repeated password.
     //   const usernameflag = await checkUsername();
-    let signupNameFlag ;
+    let signupNameFlag;
     let signupPasswordFlag;
-    let signupRepeatedPasswordFlag ;
+    let signupRepeatedPasswordFlag;
     let signupEmailFlag;
 
-    if(signupName.value.length  == 0)
-    {
-        nameErrorMsg.style.display="block";
-        signupNameFlag=false;
-    }else{
-        nameErrorMsg.style.display="none";
-        signupNameFlag=true;
+    if (signupName.value.length == 0) {
+        nameErrorMsg.style.display = "block";
+        signupNameFlag = false;
+    } else {
+        nameErrorMsg.style.display = "none";
+        signupNameFlag = true;
     }
 
     if (signupPassword.value.length < 5) {
@@ -209,36 +201,35 @@ function signup(imgName) {
     }
 
 
-    if(signupEmailFlag && signupNameFlag && signupPasswordFlag && signupRepeatedPasswordFlag && usernameFlag)
-    {
+    if (signupEmailFlag && signupNameFlag && signupPasswordFlag && signupRepeatedPasswordFlag && usernameFlag) {
         console.log("fron end saving ");
-     let user=
-     {
-         name : signupName.value,
-         username : signupUsername.value,
-         email : signupEmail.value,
-         password : signupPassword.value,
-     }
+        let user =
+        {
+            name: signupName.value,
+            username: signupUsername.value,
+            email: signupEmail.value,
+            password: signupPassword.value,
+        }
 
-     if(imgName) user.imageName=imgName;
-     else user.imageName="anonymous.png" ;
+        if (imgName) user.imageName = imgName;
+        else user.imageName = "anonymous.png";
 
-     console.log(user);
+        console.log(user);
 
-     fetch("http://localhost:3000/user/signup",
-     {
-         method: "POST",
-         headers: {
-             // "Content-Type":"text/plain",
-             Accept: "text/plain"
-         },
-         body: JSON.stringify(user),
-     }).then((res) => {
-         return res.text();
-     }).then(data => {
-        window.location=data;
-      
-     })
+        fetch("http://localhost:3000/user/signup",
+            {
+                method: "POST",
+                headers: {
+                    // "Content-Type":"text/plain",
+                    Accept: "text/plain"
+                },
+                body: JSON.stringify(user),
+            }).then((res) => {
+                return res.text();
+            }).then(data => {
+                window.location = data;
+
+            })
 
     }
 
@@ -256,7 +247,7 @@ function checkUsername() {
             },
             body: JSON.stringify({ "username": signupUsername.value }),
         }).then((res) => {
-            return res.text();
+            return res.json();
         }).then(data => {
             console.log(data);
             if (data == "valid") {
@@ -269,4 +260,63 @@ function checkUsername() {
             }
         })
 
-} 
+}
+
+let books = [];
+
+document.getElementById("myInput").addEventListener("keyup", function () {
+
+
+
+
+    let bookToSearch = document.getElementById("myInput").value;
+
+    /*        He will retrieve all the boxes if the input field null  */
+    /*        He will retrieve all the books  that contains the written pattern   */
+    console.log(bookToSearch);
+    if (bookToSearch != "") {
+
+        if (books.length > 0) {
+            displayBooksForSearch(bookToSearch);
+        } else {
+            fetch('http://localhost:3000/book/allBooks',
+                {
+                    method: "GET",
+                    headers: { Accept: 'application/json' },
+                })
+                .then(function (res) {
+                    return res.json();
+                }).then(
+                    allBooks => {
+                        books = allBooks;
+                                console.log(allBooks);
+                                displayBooksForSearch(bookToSearch);
+                    })
+
+        }
+    }
+})
+
+
+
+function displayBooksForSearch(keyword) {
+
+    let anchorElement, listElement, listGoup;
+    document.getElementById("list").innerHTML = "";
+
+    books.forEach((book) => {
+        if (book.name.toUpperCase().includes(keyword.toUpperCase())) {
+            console.log(book.name)
+            listElement = document.createElement("li");
+            anchorElement = document.createElement("a");
+
+            anchorElement.href = "#";
+
+            anchorElement.innerHTML = book.name;
+            listElement.appendChild(anchorElement);
+
+            document.getElementById("list").appendChild(listElement);
+
+        }
+    })
+}
