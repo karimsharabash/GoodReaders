@@ -43,10 +43,13 @@ logoutBtn.addEventListener("click" , logOut)
    {
       "method":"GET"
    })
-   .then( ()=>
+   .then( (res)=>
    {
-     
-      console.log("session ended")
+    console.log("session ended")
+     return res.text()
+      
+   }).then((res)=>{
+     window.location.href=res;
    })
    NavForVisitor.style.display="block"
    NavForUser.style.display="none"

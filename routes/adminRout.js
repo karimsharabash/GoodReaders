@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const publicPath = require("../public/Path");
 router.post("/login", (req,res) =>
 {
    const adminData = req.body;
@@ -11,7 +12,7 @@ router.post("/login", (req,res) =>
        if( adminData.password == "admin")
        {
            console.log("admin logged in");
-           res.send("/homePageAdmin.html");
+           res.send("/admin/getProfile");
        }
        else{
         console.log("wrong passward");
@@ -30,9 +31,11 @@ router.post("/login", (req,res) =>
 
 
 router.get("/login",(req,res)=>{
-    res.redirect("/adminLoginPage.html");
- 
+    res.sendFile(publicPath+"/adminLoginPage.html");
 })
 
+router.get("/getProfile",(req,res)=>{
+    res.sendFile(publicPath+"/homePageAdmin.html");
+})
 
 module.exports=router;

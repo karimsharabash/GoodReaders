@@ -29,7 +29,7 @@ function displayUserBooks(userBooks,mode)
 {
   tableBody.innerHTML="";
   userBooks.forEach(element => {
-    if(element.status==mode||modeFlag=="all")
+    if((element.status==mode||modeFlag=="all")&&element.book_id!=null)
     tableBody.innerHTML+='<tr><td><a href="/book/singlebook"><img id="'+element.book_id._id+'" width="50px; height="100px;" src="img/'+element.book_id.photoName+'"></a></td><td>'+element.book_id.name+'</td><td>'+element.rating+'</td>'+gettingDropDown(element.status,element.book_id._id)+'</tr>'
   });
 }

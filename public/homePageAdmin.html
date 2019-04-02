@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+ <base href="/">
 	<title>Good Reads Admin Page</title>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/homePageAdmin.css">
-	<link href="fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/homePageAdmin.css">
+	 <link href="fontawesome/css/fontawesome.css" rel="stylesheet">
     <link href="fontawesome/css/brands.css" rel="stylesheet">
     <link href="fontawesome/css/solid.css" rel="stylesheet">
+    
 	
 </head>
 <body>
         <nav class="navbar sticky-top navbar-light bg-light">
                 <p class="navbar-brand goCenter">GoodReaders</p>
             </nav>
-         <div class="navbar">
-            <input type="button" id="catygroiesBtn" value="Catygroies">
-            <input type="button" id="booksBtn" value="Books">
-            <input type="button" id="authorBtn" value="Author">
+         <div class="navbar" style="background-color: #007bff; padding:0px;">
+            <input type="button" class="btn btn-primary" id="catygroiesBtn" value="Catygroies" style="width:33%; height:50px;">
+            <input type="button" class="btn btn-primary" id="booksBtn" value="Books" style="width:33%; height:50px;">
+            <input type="button" class="btn btn-primary" id="authorBtn" value="Author" style="width:33%; height:50px;">
       </div>
   <div class="container">
     <div id="TheCatdiv" class="row CatDiv">
@@ -138,7 +140,7 @@
                   <input type="date" id="inputAuthorDateOfBirthBox">
                   <h5>Upload Image</h5>
                   <input type="file" id="inputImageForTheAuthorBox">
-                  <input type="button" id="uploadBtnAuthorImage" value="Upload">
+                  <input type="button" id="uploadAuthorImageBtn" value="Upload">
                  </div>
                   <div class="modal-footer">
                       <span id="pleaseEnterDataAuthor" class="authorFullData">Please enter the full data </span>
@@ -161,8 +163,8 @@
         </div>
       </div>
         </div>
-    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.min.js"></script>  
-    <script type="text/javascript" src="../js/homeAdminPage.js"></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>  
+    <script type="text/javascript" src="js/homeAdminPage.js"></script>
 </body>
 </html>

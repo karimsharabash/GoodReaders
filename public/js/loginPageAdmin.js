@@ -25,7 +25,7 @@ function sendLoginDataToServer(name,password)
           }
           else
           {
-          window.location=data }
+          window.location.href=data}
           })
 }
 function adminVerfication(event)

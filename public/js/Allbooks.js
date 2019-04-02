@@ -32,7 +32,19 @@ function showingBooks(allBooks)
   })
 }
 
+function settingTheRequiredBook(event)
+{
+  
+  fetch('http://localhost:3000/book/settingTheRequiredBook/'+event.target.id,
+    {
+       method:"GET",
+       headers: {Accept: 'application/json'},
+    })
+    .then(function(res){ 
+      
+})
 
+}
 
 booksDiv.addEventListener('click',settingTheRequiredBook);
 
