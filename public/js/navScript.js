@@ -51,3 +51,55 @@ logoutBtn.addEventListener("click" , logOut)
    NavForVisitor.style.display="block"
    NavForUser.style.display="none"
 }
+
+
+
+let books = [];
+
+document.getElementById("searchField").addEventListener("keyup", function () {
+
+    let bookToSearch = document.getElementById("searchField").value;
+    if (bookToSearch != "") {
+
+        if (books.length > 0) {
+            displayBooksForSearch(bookToSearch);
+        } else {
+            fetch('http://localhost:3000/book/allBooks',
+                {
+                    method: "GET",
+                    headers: { Accept: 'application/json' },
+                })
+                .then(function (res) {
+                    return res.json();
+                }).then(
+                    allBooks => {
+                        books = allBooks;
+                           
+                                displayBooksForSearch(bookToSearch);
+                    })
+
+        }
+    }
+})
+
+function displayBooksForSearch(keyword) {
+
+    let anchorElement, listElement, listGoup;
+    document.getElementById("list").innerHTML = "";
+
+    books.forEach((book) => {
+        if (book.name.toUpperCase().includes(keyword.toUpperCase())) {
+          
+            listElement = document.createElement("li");
+            anchorElement = document.createElement("a");
+
+            anchorElement.href = "#";
+
+            anchorElement.innerHTML = book.name;
+            listElement.appendChild(anchorElement);
+
+            document.getElementById("list").appendChild(listElement);
+
+        }
+    })
+}

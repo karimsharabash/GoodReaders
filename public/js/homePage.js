@@ -264,12 +264,12 @@ function checkUsername() {
 
 let books = [];
 
-document.getElementById("myInput").addEventListener("keyup", function () {
+document.getElementById("searchField").addEventListener("keyup", function () {
 
 
 
 
-    let bookToSearch = document.getElementById("myInput").value;
+    let bookToSearch = document.getElementById("searchField").value;
 
     /*        He will retrieve all the boxes if the input field null  */
     /*        He will retrieve all the books  that contains the written pattern   */
