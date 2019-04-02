@@ -103,3 +103,40 @@ function displayBooksForSearch(keyword) {
         }
     })
 }
+
+
+function displayBooksForSearch(keyword) {
+
+   let anchorElement, listElement, listGoup;
+   document.getElementById("list").innerHTML = "";
+
+   books.forEach((book) => {
+       if (book.name.toUpperCase().includes(keyword.toUpperCase())) {
+           console.log(book.name)
+           listElement = document.createElement("li");
+           anchorElement = document.createElement("a");
+           anchorElement.setAttribute("id",book._id);
+           anchorElement.href = "/book/singlebook";
+           anchorElement.innerHTML = book.name;
+           listElement.appendChild(anchorElement);
+           document.getElementById("list").appendChild(listElement);
+       }
+   })
+}
+
+
+function settingTheRequiredBook(event)
+{
+  
+  fetch('http://localhost:3000/book/settingTheRequiredBook/'+event.target.id,
+    {
+       method:"GET",
+       headers: {Accept: 'application/json'},
+    })
+    .then(function(res){ 
+      
+})
+}
+
+
+document.getElementById("list").addEventListener("click",settingTheRequiredBook)

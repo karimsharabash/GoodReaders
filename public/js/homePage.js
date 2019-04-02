@@ -41,6 +41,41 @@ window.addEventListener("load", () => {
 })
 
 
+function displayPopularBooks(allBooks) {
+    let selectedDiv;
+    allBooks.forEach((book, index) => {
+        if (index < 6)
+            selectedDiv = popularBooks;
+        else selectedDiv = morePopularBooks;
+
+        selectedDiv.innerHTML += `
+        <div class= "col-lg-2 col-md-4 col-sm-6 col-xs-12">
+        <a href="/book/singlebook"><img id="${book._id}" class="bookImg" src="img/${book.photoName}" </a>
+        <div class="card-body">
+        <h4>${book.avgRating} <span class="bookRating fa fa-star"></span><br><a > ${book.name}</a> </h4>
+        <h4> Category: ${book.categoryId.name}</h4> 
+        </div>
+        </div>
+        `
+    });
+}
+
+function settingTheRequiredBook(event)
+{
+  
+  fetch('http://localhost:3000/book/settingTheRequiredBook/'+event.target.id,
+    {
+       method:"GET",
+       headers: {Accept: 'application/json'},
+    })
+    .then(function(res){ 
+      
+})
+}
+
+popularBooks.addEventListener('click',settingTheRequiredBook);
+
+
 more_less_btn.addEventListener("click", () => {
     if (morePopularBooks.style.display != 'inline') {
         morePopularBooks.style.display = "inline";
@@ -106,24 +141,6 @@ signupSubmit.addEventListener("click", (event) => {
 })
 
 
-function displayPopularBooks(allBooks) {
-    let selectedDiv;
-    allBooks.forEach((book, index) => {
-        if (index < 6)
-            selectedDiv = popularBooks;
-        else selectedDiv = morePopularBooks;
-
-        selectedDiv.innerHTML += `
-        <div class= "col-lg-2 col-md-4 col-sm-6 col-xs-12">
-        <a href="/book/singlebook"><img id="${book._id}" class="bookImg" src="img/${book.photoName}" </a>
-        <div class="card-body">
-        <h4>${book.avgRating} <span class="bookRating fa fa-star"></span><br><a > ${book.name}</a> </h4>
-        <h4> Category: ${book.categoryId.name}</h4> 
-        </div>
-        </div>
-        `
-    });
-}
 
 
 function loginCheck(username, password, rememberFlag) {
@@ -309,14 +326,13 @@ function displayBooksForSearch(keyword) {
             console.log(book.name)
             listElement = document.createElement("li");
             anchorElement = document.createElement("a");
-
-            anchorElement.href = "#";
-
+            anchorElement.setAttribute("id",book._id);
+            anchorElement.href = "/book/singlebook";
             anchorElement.innerHTML = book.name;
             listElement.appendChild(anchorElement);
-
             document.getElementById("list").appendChild(listElement);
-
         }
     })
 }
+
+document.getElementById("list").addEventListener("click",settingTheRequiredBook)

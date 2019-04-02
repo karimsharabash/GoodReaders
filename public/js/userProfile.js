@@ -27,20 +27,15 @@ function getCurrentUser()
 
 function displayUserBooks(userBooks,mode)
 {
-  tableBody.innerHTML=""
-  
+  tableBody.innerHTML="";
   userBooks.forEach(element => {
     if(element.status==mode||modeFlag=="all")
-    
     tableBody.innerHTML+='<tr><td><a href="/book/singlebook"><img id="'+element.book_id._id+'" width="50px; height="100px;" src="img/'+element.book_id.photoName+'"></a></td><td>'+element.book_id.name+'</td><td>'+element.rating+'</td>'+gettingDropDown(element.status,element.book_id._id)+'</tr>'
-  
   });
- 
 }
 
 function changeStatus(menu)
 {
-
   updateBookStatus(menu.id,menu.value); //menu.id holds the book id and menu.value holds the new status
 }
 
@@ -84,20 +79,7 @@ function gettingDropDown(status,bookID)
    return selectMenu;
 }
 
-function settingTheRequiredBook(event)
-{
-  
-  fetch('http://localhost:3000/book/settingTheRequiredBook/'+event.target.id,
-    {
-       method:"GET",
-       headers: {Accept: 'application/json'},
-    })
-    .then(function(res){     
-})
-
-}
-
-
+tableBody.addEventListener('click',settingTheRequiredBook);
 
 function updateBookStatus(bookId,newStatus)
 { 

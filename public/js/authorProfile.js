@@ -76,18 +76,5 @@ function displayAuthorBooks(book)
     });
 }
 
-function settingTheRequiredBook(event)
-{
-    fetch('http://localhost:3000/book/settingTheRequiredBook/'+event.target.id,
-{
-   method:"GET",
-   headers: {Accept: 'application/json'},
-})
-.then(res => { 
-    return res.json();
-
-  
-})
-}
 
 popularBooks.addEventListener('click',settingTheRequiredBook)
