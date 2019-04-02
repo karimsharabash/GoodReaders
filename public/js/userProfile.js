@@ -28,13 +28,20 @@ function getCurrentUser()
 function displayUserBooks(userBooks,mode)
 {
   tableBody.innerHTML=""
-
+  
   userBooks.forEach(element => {
     if(element.status==mode||modeFlag=="all")
-   
-    tableBody.innerHTML+='<tr><td><a href="/book/singlebook"><img id="'+element.book_id._id+'" width="50px; height="100px;" src="img/'+element.book_id.photoName+'"></a></td><td>'+element.book_id.name+'</td><td>'+element.rating+'</td>'+gettingDropDown(element.status)+'</tr>'
- });
+    
+    tableBody.innerHTML+='<tr><td><a href="/book/singlebook"><img id="'+element.book_id._id+'" width="50px; height="100px;" src="img/'+element.book_id.photoName+'"></a></td><td>'+element.book_id.name+'</td><td>'+element.rating+'</td>'+gettingDropDown(element.status,element.book_id._id)+'</tr>'
+  
+  });
  
+}
+
+function changeStatus(menu)
+{
+
+  updateBookStatus(menu.id,menu.value); //menu.id holds the book id and menu.value holds the new status
 }
 
 window.addEventListener('load',getCurrentUser)
@@ -59,19 +66,19 @@ wishToRead.addEventListener('click',()=>{
   displayUserBooks(userBooks,modeFlag)
 })
 
-function gettingDropDown(status)
+function gettingDropDown(status,bookID)
 {
    let selectMenu;
    switch (status)
    {
    case "read":
-   selectMenu='<td><select id="bookStatusMenu" class="form-control" style="width:250px"><option value="reading">Currently reading</option><option value="wantToRead" >Want to read</option><option selected="selected" value="read" >Read</option></select></td>'
+   selectMenu='<td><select onchange="changeStatus(this);" id="'+ bookID +'" class="form-control" style="width:250px"><option value="reading">Currently reading</option><option value="wantToRead" >Want to read</option><option selected="selected" value="read" >Read</option></select></td>'
    break;
    case "reading":
-   selectMenu='<td><select id="bookStatusMenu" class="form-control" style="width:250px"><option selected="selected" value="reading">Currently reading</option><option value="wantToRead" >Want to read</option><option  value="read" >Read</option></select></td>'
+   selectMenu='<td><select onchange="changeStatus(this);"  id="'+ bookID +'"class="form-control" style="width:250px"><option selected="selected" value="reading">Currently reading</option><option value="wantToRead" >Want to read</option><option  value="read" >Read</option></select></td>'
    break;
    case "wantToRead":
-   selectMenu='<td><select id="bookStatusMenu" class="form-control" style="width:250px"><option  value="reading">Currently reading</option><option selected="selected" value="wantToRead" >Want to read</option><option  value="read" >Read</option></select></td>'
+   selectMenu='<td><select onchange="changeStatus(this);"  id="'+ bookID +'" class="form-control" style="width:250px"><option  value="reading">Currently reading</option><option selected="selected" value="wantToRead" >Want to read</option><option  value="read" >Read</option></select></td>'
    break;
    } 
    return selectMenu;
@@ -90,10 +97,11 @@ function settingTheRequiredBook(event)
 
 }
 
-tableBody.addEventListener('click',settingTheRequiredBook)
+
 
 function updateBookStatus(bookId,newStatus)
 { 
+
     fetch("http://localhost:3000/user/" + currentUserId + "/book/" + bookId,
         {
             "method": "PUT",

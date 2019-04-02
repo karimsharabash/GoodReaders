@@ -247,7 +247,7 @@ function checkUsername() {
             },
             body: JSON.stringify({ "username": signupUsername.value }),
         }).then((res) => {
-            return res.json();
+            return res.text();
         }).then(data => {
             console.log(data);
             if (data == "valid") {

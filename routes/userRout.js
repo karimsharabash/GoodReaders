@@ -82,7 +82,6 @@ router.get("/nav/defineUser", (req, res) => {
 
 router.post("/signup/checkUsername", (req, res) => {
   const Username = req.body.username;
-  
   userModel.findOne({ username: Username }, (err, data) => {
     if (data) res.send("invalid");
     else res.send("valid");
@@ -181,7 +180,7 @@ router.put("/:userId/book/:bookId" ,(req,res) =>
   const BookIdToUpdate = req.params.bookId; 
   const updatedBook =req.body
   userModel.findOne({ _id: idToUpdate , "books.book_id" : BookIdToUpdate }, { "_id" : 1, "books" : 1,"username":1} ,(err, user) => {
-    
+    if(err) throw err;
     for (book of user.books)
     {
       if(book.book_id == BookIdToUpdate)
