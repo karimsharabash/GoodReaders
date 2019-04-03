@@ -76,6 +76,7 @@ app.use("/user", userRout);
 app.use("/book",bookRout)
 app.use("/author", authorRout);
 app.use("/review",reviewRout)
+
 app.get('/home',(req,res)=>{
     if(req.session.user==undefined)
     res.sendFile(publicPath+"/home.html")

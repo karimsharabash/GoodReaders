@@ -27,9 +27,9 @@ stars.forEach(star => {
     star.addEventListener('mouseout', unhoverStars);
 });
 
-bookStatusMenu.addEventListener("change",(event)=>{
-bookStatus = event.target.value;
-updateUpdateUserRating("",bookStatus)
+bookStatusMenu.addEventListener("change", (event) => {
+    bookStatus = event.target.value;
+    updateUpdateUserRating("", bookStatus)
 })
 
 
@@ -38,52 +38,54 @@ This function sets the rating specified by the user through clicking on a star, 
 & also 
 */
 function setRating() {
-    if(currentUserId){
+    if (currentUserId) {
+        let selectedStar = this;
+        let match = false;
+        clicked = true;
+        stars.forEach((star, index) => {
+            if (match) {
+                star.classList.remove('checked');
+            } else {
+                star.classList.add('checked');
+            }
+            if (star === selectedStar) {
+                match = true;
+                currentUserRating = index + 1;
+            }
+        });
+
+        updateOldRating(currentUserRating);
+    }
+    else {
+        fetch("http://localhost:3000/user/logout", // 
+            {
+                "method": "GET"
+                // body: JSON.stringify(newBook)
+            })
+            .then((res) => {
+                return res.text()
+            }).then((res) => {
+                window.location.href = res;
+            })
+    }
+}
+
+
+
+function hoverStars() {
     let selectedStar = this;
     let match = false;
-    clicked = true;
     stars.forEach((star, index) => {
-        if (match) {
+        if (match && index > currentRating) {
             star.classList.remove('checked');
         } else {
             star.classList.add('checked');
         }
         if (star === selectedStar) {
             match = true;
-            currentUserRating = index + 1;
+            return;
         }
     });
-
-    updateOldRating(currentUserRating);
-}
-else{
-    fetch("http://localhost:3000/home",
-    {
-        "method": "GET",
-        "redirect" :"follow"
-        // body: JSON.stringify(newBook)
-    })
-
-    console.log("not allowed")
-}
-}
-
-
-function hoverStars()
-{
-        let selectedStar = this;
-        let match = false;
-            stars.forEach((star, index) => {
-                if(match && index > currentRating){
-                    star.classList.remove('checked');
-                }else{
-                    star.classList.add('checked');
-                }
-                if(star === selectedStar){
-                    match=true;
-                    return;
-                }
-            });
 }
 
 
@@ -105,47 +107,50 @@ function unhoverStars() {
 commentForm.addEventListener('submit', addComment)
 
 function addComment(e) {
-    if(currentUserId){
     e.preventDefault();
-    var commentTime = new Date();
-    postReview(currentUserName, comment.value , commentTime )
-    sendReviewToServer(comment.value );
-    commentForm.reset();
+    if (currentUserId) {
+
+        var commentTime = new Date();
+        postReview(currentUserName, comment.value, commentTime)
+        sendReviewToServer(comment.value);
+        commentForm.reset();
     }
-    else{
+    else {
         console.log("comment not allowed")
 
-        fetch("http://localhost:3000/home",
-        {
-            "method": "GET"
-            // body: JSON.stringify(newBook)
-        })
+        fetch("http://localhost:3000/user/logout", // 
+            {
+                "method": "GET"
+                // body: JSON.stringify(newBook)
+            })
+            .then((res) => {
+                return res.text()
+            }).then((res) => {
+                window.location.href = res;
+            })
     }
 
 }
 
 // karim code 
-function postReview(username , comment , time )
-{
+function postReview(username, comment, time) {
     reviewsArea.innerHTML += '<div class="well">' +
-    '<h5> '+ username + ' :</h5> '+
-    "<p>" +comment + "</p>"+
-     time.toUTCString()+
-    '</div>';
+        '<h5> ' + username + ' :</h5> ' +
+        "<p>" + comment + "</p>" +
+        time.toUTCString() +
+        '</div>';
 }
 
-function sendReviewToServer(comment )
-{   
+function sendReviewToServer(comment) {
     fetch("http://localhost:3000/review",
-    {
-        "method" :"POST",
-        body:JSON.stringify({"bookId" :currentBookId,"userId" : currentUserId, "content":comment })      
-    })
-    .then(res => res.text())
-    .then(respone =>
-    {
-        console.log(respone);
-    })
+        {
+            "method": "POST",
+            body: JSON.stringify({ "bookId": currentBookId, "userId": currentUserId, "content": comment })
+        })
+        .then(res => res.text())
+        .then(respone => {
+            console.log(respone);
+        })
 }
 
 window.addEventListener('load', defineTheBook);
@@ -153,75 +158,69 @@ window.addEventListener('load', defineTheBook);
 function defineTheBook() {
     let sessionDefined = false;
     fetch("http://localhost:3000/book/define/Book",
-    {
+        {
             method: "GET",
             headers: { Accept: 'application/json' },
         })
         .then(function (res) {
-            
-            return res.json();
-           
-        }).then(data => {
-     
-            if( data.authorId )
-            {
-              
-            currentBookId = data._id;
-            bookCoverImg.src = "img/" + data.photoName;
-            descArea.textContent = data.description;
-            bookTitle.textContent = data.name;
-            averageRating = parseInt(data.avgRating);
-            changeStars(averageRating);
-            ratingsCount.textContent = data.ratingCount + " ";
-            getBookAuthor(data.authorId);
-            getBookCategory(data.categoryId.name);
-            sessionDefined=true;
-            }
-        })
-        .then ( () =>{
-            if(sessionDefined){
-        fetch("http://localhost:3000/user/" + currentUserId + "/book/" + currentBookId,
-        {
-            "method": "GET",
-            headers: { Accept: ['application/json', "text/plain"] },
-        })
-        .then(res => res.json())
-        .then(response => {
-            
-            if (response != "not found") //create the relation
-            {
-                if(response.rating )
-                {
-                    currentUserRating =response.rating
-                    abilityToAddRating=false
-                    for(let i =  1 ; i < response.rating+1  ; i++)
-                    {
-                        starDiv.children[i].classList.add('checked');
-                    }
-                }
-                if(response.status)
-                {
-                    bookStatusMenu.value=response.status
-                }
-            }
-        })
 
-        fetch("http://localhost:3000/review/"+ currentBookId,
-        {
-            "method": "GET",
-            headers: { Accept: ['application/json', "text/plain"] },
-        }).then( res => res.json())
-        .then((reviews)=>
-        {   
-            console.log(reviews);
-            for (let review of reviews ) 
-            {
-                let reviewDate = new Date(review.time) //convet the mongoose date type to js date to use date functions 
-                postReview(review.userId.username , review.content ,reviewDate );
+            return res.json();
+
+        }).then(data => {
+
+            if (data.authorId) {
+
+                currentBookId = data._id;
+                bookCoverImg.src = "img/" + data.photoName;
+                descArea.textContent = data.description;
+                bookTitle.textContent = data.name;
+                averageRating = parseInt(data.avgRating);
+                changeStars(averageRating);
+                ratingsCount.textContent = data.ratingCount + " ";
+                getBookAuthor(data.authorId);
+                getBookCategory(data.categoryId.name);
+                sessionDefined = true;
             }
         })
-    }
-    })
+        .then(() => {
+            if (sessionDefined) {
+                fetch("http://localhost:3000/user/" + currentUserId + "/book/" + currentBookId,
+                    {
+                        "method": "GET",
+                        headers: { Accept: ['application/json', "text/plain"] },
+                    })
+                    .then(res => res.json())
+                    .then(response => {
+
+                        if (response != "not found") //create the relation
+                        {
+                            if (response.rating) {
+                                currentUserRating = response.rating
+                                abilityToAddRating = false
+                                for (let i = 1; i < response.rating + 1; i++) {
+                                    starDiv.children[i].classList.add('checked');
+                                }
+                            }
+                            if (response.status) {
+                                bookStatusMenu.value = response.status
+                            }
+                        }
+                    })
+
+                fetch("http://localhost:3000/review/" + currentBookId,
+                    {
+                        "method": "GET",
+                        headers: { Accept: ['application/json', "text/plain"] },
+                    }).then(res => res.json())
+                    .then((reviews) => {
+                        console.log(reviews);
+                        for (let review of reviews) {
+                            let reviewDate = new Date(review.time) //convet the mongoose date type to js date to use date functions 
+                            postReview(review.userId.username, review.content, reviewDate);
+                        }
+                    })
+            }
+        })
 
 
 }
@@ -255,12 +254,12 @@ function updateOldRating(newRating) {
         abilityToAddRating = false;
         averageRating += (newRating / newRatingCount);
         averageRating = averageRating.toPrecision(2);
-        if(averageRating >5 ) averageRating =5;
+        if (averageRating > 5) averageRating = 5;
         updateRatingTextAndStars(averageRating);
         ratingsCount.textContent = newRatingCount + " ";
-        updateBookData({avgRating : averageRating , ratingCount : newRatingCount});
+        updateBookData({ avgRating: averageRating, ratingCount: newRatingCount });
     }
-    updateUpdateUserRating(newRating,"")
+    updateUpdateUserRating(newRating, "")
 }
 
 function updateRatingTextAndStars(avgRating) {
@@ -274,11 +273,11 @@ function getBookAuthor(author) {
 
 }
 function getBookCategory(category) {
-                categoryName.textContent = category;
-    
+    categoryName.textContent = category;
+
 }
 
-function updateUpdateUserRating(newRating,newStatus) {
+function updateUpdateUserRating(newRating, newStatus) {
     fetch("http://localhost:3000/user/" + currentUserId + "/book/" + currentBookId,
         {
             "method": "GET",
@@ -288,25 +287,25 @@ function updateUpdateUserRating(newRating,newStatus) {
         .then(response => {
             if (response == "not found") //create the relation
             {
-                
-                if(newStatus == ""){
-                sendNewData({
-                    book_id:currentBookId,
-                    rating:newRating,
-                })
-                }else{
+
+                if (newStatus == "") {
                     sendNewData({
-                        book_id:currentBookId,
-                        status:newStatus,
+                        book_id: currentBookId,
+                        rating: newRating,
+                    })
+                } else {
+                    sendNewData({
+                        book_id: currentBookId,
+                        status: newStatus,
                     })
                 }
-            }else {
-                                 //update the relation
-                if(newStatus == ""){
-                    sendUpdatedData({ rating: newRating , status : " " , }); //to make it generic route at the server side
-                    }else{
-                        sendUpdatedData({ rating: "" , status : newStatus , }); //to make it generic route at the server side
-                    }
+            } else {
+                //update the relation
+                if (newStatus == "") {
+                    sendUpdatedData({ rating: newRating, status: " ", }); //to make it generic route at the server side
+                } else {
+                    sendUpdatedData({ rating: "", status: newStatus, }); //to make it generic route at the server side
+                }
             }
         })
 }
@@ -318,44 +317,46 @@ function sendUpdatedData(updatedBook) {
             body: JSON.stringify(updatedBook)
         })
         .then((res) => {
-          return  res.text();
+            return res.text();
         }).then((data) => {
             console.log(data);
         })
 }
 
 
-function sendNewData(newBook)
-{
-    if(currentUserId){
-    fetch("http://localhost:3000/user/" + currentUserId + "/book/",
-        {
-            "method": "POST",
-            body: JSON.stringify(newBook)
-        })
-        .then((res) => res.text()).then((data) => {
-            console.log(data);
-        })
-    }else{
-        fetch("http://localhost:3000/home",
-        {
-            "method": "GET"
-            // body: JSON.stringify(newBook)
-        })
+function sendNewData(newBook) {
+    if (currentUserId) {
+        fetch("http://localhost:3000/user/" + currentUserId + "/book/",
+            {
+                "method": "POST",
+                body: JSON.stringify(newBook)
+            })
+            .then((res) => res.text()).then((data) => {
+                console.log(data);
+            })
+    } else {
+        fetch("http://localhost:3000/user/logout", // 
+            {
+                "method": "GET"
+                // body: JSON.stringify(newBook)
+            })
+            .then((res) => {
+                return res.text()
+            }).then((res) => {
+                window.location.href = res;
+            })
     }
-    
 }
 
-function updateBookData(newBookData)
-{
-    fetch("http://localhost:3000/book/"+currentBookId ,
-    {
-        "method" : "PUT",
-        body:JSON.stringify(newBookData),
-    })
-    .then (res => res.text())
-    .then (data =>
+
+function updateBookData(newBookData) {
+    fetch("http://localhost:3000/book/" + currentBookId,
         {
-            console.log(data );
+            "method": "PUT",
+            body: JSON.stringify(newBookData),
+        })
+        .then(res => res.text())
+        .then(data => {
+            console.log(data);
         })
 }

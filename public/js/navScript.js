@@ -55,8 +55,6 @@ logoutBtn.addEventListener("click" , logOut)
    NavForUser.style.display="none"
 }
 
-
-
 let books = [];
 
 document.getElementById("searchField").addEventListener("keyup", function () {
@@ -77,10 +75,8 @@ document.getElementById("searchField").addEventListener("keyup", function () {
                 }).then(
                     allBooks => {
                         books = allBooks;
-                           
-                                displayBooksForSearch(bookToSearch);
+                            displayBooksForSearch(bookToSearch);
                     })
-
         }
     }
 })
@@ -95,12 +91,9 @@ function displayBooksForSearch(keyword) {
           
             listElement = document.createElement("li");
             anchorElement = document.createElement("a");
-
             anchorElement.href = "#";
-
             anchorElement.innerHTML = book.name;
             listElement.appendChild(anchorElement);
-
             document.getElementById("list").appendChild(listElement);
 
         }
@@ -127,10 +120,8 @@ function displayBooksForSearch(keyword) {
    })
 }
 
-
 function settingTheRequiredBook(event)
-{
-  
+{  
   fetch('http://localhost:3000/book/settingTheRequiredBook/'+event.target.id,
     {
        method:"GET",
@@ -140,6 +131,5 @@ function settingTheRequiredBook(event)
       
 })
 }
-
 
 document.getElementById("list").addEventListener("click",settingTheRequiredBook)
