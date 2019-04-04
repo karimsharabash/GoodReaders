@@ -15,6 +15,20 @@ router.get("/:id" , (req,res)=>
 })
 
 
+router.get("/new/:id" , (req,res)=>
+{
+    
+    const bookID = req.params.id;
+    reviewModel.find( {bookId :  bookID} )
+    .populate('userId' , "username")
+    .sort({time : -1})
+    .limit(1)
+    .exec( (err, reviews) =>
+    {
+        res.send(reviews)
+    })
+})
+
 
 router.post("/" , (req, res)=>
 {

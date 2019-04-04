@@ -7,8 +7,8 @@ const bookRout = require("./routes/bookRout");
 const authorRout = require("./routes/authorRout");
 const reviewRout = require("./routes/reviewRout");
 const cors = require('cors');
-const path= require("path");
-const  cookieParser = require('cookie-parser');
+const path = require("path");
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const publicPath = require("./public/Path");
 const MongoStore = require('connect-mongo')(session);
@@ -23,25 +23,25 @@ const app = express();
 const server = require('http').Server(app);
 
 const io = require('socket.io')(server);
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(express.urlencoded());
 app.use(express.json({
     type: ['application/json', 'text/plain']
-  }));
+}));
 
-  /*code added by karim for session */
+/*code added by karim for session */
 
-  app.use(cookieParser());
+app.use(cookieParser());
 
- /*
+/*
 
- resave : Forces the session to be saved back to the session store, 
- even if the session was never modified during the request
+resave : Forces the session to be saved back to the session store, 
+even if the session was never modified during the request
  
- cookie :The default value is { path: '/', httpOnly: true,
-  secure: false, maxAge: null }.
- */
+cookie :The default value is { path: '/', httpOnly: true,
+ secure: false, maxAge: null }.
+*/
 app.use(session({
     key: 'user_sID',
     secret: 'fight-club',
@@ -52,61 +52,51 @@ app.use(session({
     //  maxAge: 1000 * 60 * 60 * 24  //month
     // },
     store: new MongoStore({
-      mongooseConnection: mongoose.connection,
-      ttl: 24 * 60 * 60 // Keeps session open for 1 day
-  })
+        mongooseConnection: mongoose.connection,
+        ttl: 24 * 60 * 60 // Keeps session open for 1 day
+    })
 }));
 
-/* This middleware will check if user's cookie is 
-still saved in browser and user is not set,
- then automatically log the user out.
-  This usually happens when you stop your express 
-  server after login,your cookie still remains
-   saved in the browser.
-*/
-// app.use((req, res, next) => {
-//   if (req.cookies.user_sid && !req.session.user) {
-//       res.clearCookie('user_sID');        
-//   }
-//   next();
-// });
 
 
 //app.use(sessionChecker());
-/*end of session code */ 
+/*end of session code */
 app.use("/admin", adminRout);
 app.use("/category", categoryRout);
 app.use("/user", userRout);
-app.use("/book",bookRout)
+app.use("/book", bookRout)
 app.use("/author", authorRout);
-app.use("/review",reviewRout)
+app.use("/review", reviewRout)
 
-app.get('/home',(req,res)=>{
-    if(req.session.user==undefined)
-    res.sendFile(publicPath+"/home.html")
+app.get('/home', (req, res) => {
+    if (req.session.user == undefined)
+        res.sendFile(publicPath + "/home.html")
     else
-    res.sendFile(publicPath+"/userProfile.html");
+        res.sendFile(publicPath + "/userProfile.html");
 })
 
 
-
-io.on('connection',(socket)=>{
+let clients = {};
+io.on('connection', (socket) => {
 
     console.log('connect');
-   
-    io.to(socket.id).emit('addUsers',clients);
 
-    socket.on('disconnect',()=>{
+    io.to(socket.id).emit('addUsers', clients);
+
+    socket.on('disconnect', () => {
         console.log("a user disconnected !!!");
         delete clients[socket.id]
-        socket.broadcast.emit('addUsers',clients);
+        socket.broadcast.emit('addUsers', clients);
     });
 
-    socket.on('send',(post)=>{
-        console.log(socket.handshake)
-        console.log(post)
-        
-        
+    socket.on('send', () => {
+
+        // console.log(socket.handshake)
+        // console.log(post)
+        console.log("new post pushed")
+        socket.broadcast.emit("newReview");
+
+
     })
 
 });

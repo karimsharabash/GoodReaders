@@ -11,7 +11,7 @@ const authorName = document.getElementById("authorName");
 const categoryName = document.getElementById("categoryName");
 const bookStatusMenu = document.getElementById('bookStatusMenu');
 const starDiv = document.getElementById("starDiv")
-
+const socket = io();
 let currentRating = 0;
 let clicked = true;
 let currentUserRating = 0;
@@ -103,11 +103,13 @@ function unhoverStars() {
     }
 }
 
+
 /* Reviews part */
 commentForm.addEventListener('submit', addComment)
 
 function addComment(e) {
     e.preventDefault();
+    socket.emit('send');
     if (currentUserId) {
 
         var commentTime = new Date();
@@ -360,3 +362,18 @@ function updateBookData(newBookData) {
             console.log(data);
         })
 }
+
+socket.on('newReview',()=>{          //when there a new review get it 
+    console.log('new review')
+    fetch("http://localhost:3000/review/new/" + currentBookId,
+    {
+        "method": "GET",
+        headers: { Accept: ['application/json', "text/plain"] },
+    }).then(res => res.json())
+    .then((review) => {
+        console.log(review);
+            let reviewDate = new Date(review[0].time) //convet the mongoose date type to js date to use date functions 
+            postReview(review[0].userId.username, review[0].content, reviewDate);
+        
+    })
+})
