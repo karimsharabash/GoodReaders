@@ -12,6 +12,7 @@ const  cookieParser = require('cookie-parser');
 const session = require('express-session');
 const publicPath = require("./public/Path");
 const MongoStore = require('connect-mongo')(session);
+const postModel = require("./models/posts")
 mongoose.connect('mongodb://localhost:27017/bookDB', () => {
     console.log("connected to database");
 })
@@ -19,6 +20,9 @@ mongoose.connect('mongodb://localhost:27017/bookDB', () => {
 
 
 const app = express();
+const server = require('http').Server(app);
+
+const io = require('socket.io')(server);
 app.use(express.static(path.join(__dirname,'public')));
 app.use(cors());
 app.use(express.urlencoded());
@@ -83,4 +87,28 @@ app.get('/home',(req,res)=>{
     else
     res.sendFile(publicPath+"/userProfile.html");
 })
-app.listen(3000);
+
+
+
+io.on('connection',(socket)=>{
+
+    console.log('connect');
+   
+    io.to(socket.id).emit('addUsers',clients);
+
+    socket.on('disconnect',()=>{
+        console.log("a user disconnected !!!");
+        delete clients[socket.id]
+        socket.broadcast.emit('addUsers',clients);
+    });
+
+    socket.on('send',(post)=>{
+        console.log(socket.handshake)
+        console.log(post)
+        
+        
+    })
+
+});
+
+server.listen(3000);

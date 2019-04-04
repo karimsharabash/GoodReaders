@@ -1,0 +1,24 @@
+.shadow-textarea textarea.form-control::placeholder {
+    font-weight: 300;
+}
+.shadow-textarea textarea.form-control {
+    padding-left: 0.8rem;
+}
+
+.inputBoxForPosts{
+    margin-top:150px;
+    margin-left: 100px;
+    margin-right: 100px; 
+}
+.PostBtn{
+    margin-top:10px; 
+}
+
+.Posts{
+    width: 500px;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 20px;
+    border: 2px;
+    border-style: solid;
+}
