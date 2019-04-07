@@ -79,24 +79,10 @@ app.get('/home', (req, res) => {
 let clients = {};
 io.on('connection', (socket) => {
 
-    console.log('connect');
 
-    io.to(socket.id).emit('addUsers', clients);
-
-    socket.on('disconnect', () => {
-        console.log("a user disconnected !!!");
-        delete clients[socket.id]
-        socket.broadcast.emit('addUsers', clients);
-    });
-
-    socket.on('send', () => {
-
-        // console.log(socket.handshake)
-        // console.log(post)
+    socket.on('Review', () => {
         console.log("new post pushed")
         socket.broadcast.emit("newReview");
-
-
     })
 
 });

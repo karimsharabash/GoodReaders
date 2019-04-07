@@ -109,7 +109,7 @@ commentForm.addEventListener('submit', addComment)
 
 function addComment(e) {
     e.preventDefault();
-    socket.emit('send');
+    socket.emit('Review');
     if (currentUserId) {
 
         var commentTime = new Date();
